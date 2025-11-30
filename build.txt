@@ -1,0 +1,4 @@
+displayName = La Sangre de Sancho (Limbus Company)
+author = wolf-71
+version = 0.1
+buildIgnore = *.ase, *.csproj, aseprite/*
