@@ -1,0 +1,12 @@
+Mods: {
+	LaSangreMod: {
+		Items: {
+			LaSangreWeapon: {
+				DisplayName: La Sangre Weapon
+				Tooltip: ""
+			}
+		}
+
+		Projectiles.LaSangreProjectile.DisplayName: La Sangre Projectile
+	}
+}
