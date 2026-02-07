@@ -1,4 +1,6 @@
+using LaSangreMod.Common;
 using Terraria;
+using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
 
@@ -29,5 +31,19 @@ namespace LaSangreMod.Content.Weapons
 				// If two players charge at each other, the first one to hit should cancel the other's lance
 				Item.StopAnimationOnHurt = true;
 		}
+
+        public override void UpdateInventory(Player player)
+        {
+            base.UpdateInventory(player);
+			//player.GetModPlayer<SanchoModPlayer>().hardBlood
+			
+			// Temporary way to check hardblood 
+			// TODO: Implement final using ModifyTooltip() to display on tooltip???
+			if(Main.GameUpdateCount % 180 == 0)
+			{
+				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
+			}
+		}
+
 	}
 }

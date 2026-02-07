@@ -147,6 +147,7 @@ namespace LaSangreMod.Content.Projectiles
 			modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
 		}
 
+
 		// This is the custom collision that Jousting Lances uses. 
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{

@@ -1,4 +1,6 @@
 {
   "rootNamespace": "LaSangreMod",
-  "fileMap": {}
+  "fileMap": {
+    "Common/SanchoModPlayer.cs": "LaSangreMod.Common"
+  }
 }
