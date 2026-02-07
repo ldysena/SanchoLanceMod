@@ -14,13 +14,13 @@ namespace LaSangreMod.Content.Weapons
 				// The shoot speed will affect how far away the projectile spawns from the player's hand.
 				// If you are using the custom AI in your projectile (and not aiStyle 19 and AIType = ProjectileID.JoustingLance), the standard value is 1f.
 				// If you are using aiStyle 19 and AIType = ProjectileID.JoustingLance, then multiply the value by about 3.5f.
-				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.LaSangreProjectile>(), 1f, 24);
+				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.LaSangreProjectile>(), 1f, 18);
 
 				Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 
-				Item.SetWeaponValues(56, 12f, 0); // A special method that sets the damage, knockback, and bonus critical strike chance.
+				Item.SetWeaponValues(180, 12f, 0); // A special method that sets the damage, knockback, and bonus critical strike chance.
 
-				Item.SetShopValues(ItemRarityColor.LightRed4, Item.buyPrice(0, 6)); // A special method that sets the rarity and value.
+				Item.SetShopValues(ItemRarityColor.Yellow8, Item.buyPrice(1, 6, 0, 5)); // A special method that sets the rarity and value.
 
 				Item.channel = true; // Channel is important for our projectile.
 

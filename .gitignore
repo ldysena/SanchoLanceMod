@@ -1,4 +1,4 @@
 *.ase
-*.csproj
 bin/*
 obj/*
+.vscode/*

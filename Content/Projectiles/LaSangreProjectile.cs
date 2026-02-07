@@ -81,6 +81,9 @@ namespace LaSangreMod.Content.Projectiles
 
 			Vector2 center = owner.RotatedRelativePoint(owner.MountedCenter); // Get the center of the owner. This accounts for the player being shifted up or down while riding a mount, sitting in a chair, etc.
 			Projectile.Center = center; // Set the center of the projectile to the center of the owner. Projectile.Center is now actually the tip of the Jousting Lance.
+
+			// TODO: We should be able to get the lance to follow the mouse by changing Projectsile.velocity to be based on the mouse position and player position
+
 			Projectile.position += Projectile.velocity * tipDist; // The projectile velocity contains the orientation of the lance, multiply it by the tipDist to position the tip.
 
 			// Set the rotation of the projectile.
@@ -215,11 +218,11 @@ namespace LaSangreMod.Content.Projectiles
 				position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
 				sourceRectangle, drawColor, rotation, origin, Projectile.scale, spriteEffects, 0);
 
-			// The following is for debugging the size of the collision rectangle. Set this to the same size as the one you have in Colliding().
-			// Rectangle lanceHitboxBounds = new Rectangle(0, 0, 300, 300);
-			// Main.EntitySpriteDraw(TextureAssets.MagicPixel.Value,
-			// 	new Vector2((int)Projectile.Center.X - lanceHitboxBounds.Width / 2, (int)Projectile.Center.Y - lanceHitboxBounds.Height / 2) - Main.screenPosition,
-			// 	lanceHitboxBounds, Color.Orange * 0.5f, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
+			 //The following is for debugging the size of the collision rectangle. Set this to the same size as the one you have in Colliding().
+			 //Rectangle lanceHitboxBounds = new Rectangle(0, 0, 300, 300);
+			 //Main.EntitySpriteDraw(TextureAssets.MagicPixel.Value,
+			 //	new Vector2((int)Projectile.Center.X - lanceHitboxBounds.Width / 2, (int)Projectile.Center.Y - lanceHitboxBounds.Height / 2) - Main.screenPosition,
+			 //	lanceHitboxBounds, Color.Orange * 0.5f, 0, Vector2.Zero, 1f, SpriteEffects.None, 0);
 
 			// It's important to return false, otherwise we also draw the original texture.
 			return false;
