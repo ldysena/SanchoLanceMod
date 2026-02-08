@@ -23,19 +23,22 @@ namespace LaSangreMod.Common
 	public class SanchoModPlayer : ModPlayer
 	{
 		// Here we declare the FrostBurnSummon variable which will represent whether this player has the effect or not.
-        public const int HARDBLOOD_MAX = 9999;
+        public const int HARDBLOOD_MAX = 50000;
 		public int hardBlood = 0; // TODO: Reset hardblood when we don't have the weapon / we drop it and only track when we have it
+		public bool canGainHardblood = true;
 
-		// ResetEffects is used to reset effects back to their default value. Terraria resets all effects every frame back to defaults so we will follow this design. (You might think to set a variable when an item is equipped and un-assign the value when the item in unequipped, but Terraria is not designed that way.)
-		/*public override void ResetEffects() 
+		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
         {
-			hardBlood = 0;
-		}*/
+			if(canGainHardblood && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed)))
+            {
+                hardBlood += damageDone;
+				if(hardBlood > HARDBLOOD_MAX) { hardBlood = HARDBLOOD_MAX; }
+            }
+        }
 
-		// Here we use a "hook" to actually let our FrostBurnSummon status take effect. This hook is called anytime a player owned projectile hits an enemy.
-		public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone) 
+		// TODO: Use OnHitNPCWithProj and OnHitNPCWithItem to implement double hardblood gain when using La Sangre itself??
+		/*public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone) 
         {
-            // TODO: Use OnHitNPCWithProj and OnHitNPCWithItem to implement double hardblood gain when using La Sangre itself
 			if(hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
             {
                 hardBlood += damageDone;
@@ -46,14 +49,13 @@ namespace LaSangreMod.Common
 
         public override void OnHitNPCWithItem(Item item, NPC target, NPC.HitInfo hit, int damageDone) 
         {
-            // TODO: Use OnHitNPCWithProj and OnHitNPCWithItem to implement double hardblood gain when using La Sangre itself
 			if(hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
             {
                 hardBlood += damageDone;
             }
 
             if(hardBlood > HARDBLOOD_MAX) { hardBlood = HARDBLOOD_MAX; }
-        }
+        }*/
 
 		// As a recap. Make a class variable, reset that variable in ResetEffects, and use that variable in the logic of whatever hooks you use.
 	}

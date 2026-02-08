@@ -5,8 +5,16 @@ Mods: {
 				DisplayName: La Sangre Weapon
 				Tooltip: ""
 			}
+
+			AscendantWeapon: {
+				DisplayName: Ascendant Weapon
+				Tooltip: ""
+			}
 		}
 
-		Projectiles.LaSangreProjectile.DisplayName: La Sangre Projectile
+		Projectiles: {
+			LaSangreProjectile.DisplayName: La Sangre Projectile
+			AscendantProjectile.DisplayName: Ascendant Projectile
+		}
 	}
 }
