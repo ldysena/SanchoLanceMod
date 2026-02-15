@@ -17,7 +17,7 @@ namespace LaSangreMod.Content.Weapons
 				// The shoot speed will affect how far away the projectile spawns from the player's hand.
 				// If you are using the custom AI in your projectile (and not aiStyle 19 and AIType = ProjectileID.JoustingLance), the standard value is 1f.
 				// If you are using aiStyle 19 and AIType = ProjectileID.JoustingLance, then multiply the value by about 3.5f.
-				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.7f, 18);
+				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.4f, 18);
 
 				Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 
@@ -34,27 +34,35 @@ namespace LaSangreMod.Content.Weapons
 				Item.StopAnimationOnHurt = false;
 		}
 
-        /*public override bool CanRightClick()
+		// TODO: Manage side case of dropping the weapon
+		public override bool OnPickup(Player player)
         {
-            return true;
-        }
+			// TODO: Disallow pickup if we have an ascendant already???? Wierd side case: picking up another La Sangre when you are using it will reset values
 
-        public override bool OnPickup(Player player)
-        {
+			Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
 			player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
+			player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+
             return base.OnPickup(player);
-        }*/
+        }
 
         public override void UpdateInventory(Player player)
         {
             base.UpdateInventory(player);
-			//player.GetModPlayer<SanchoModPlayer>().hardBlood
 			
 			// Temporary way to check hardblood 
 			// TODO: Implement final using ModifyTooltip() to display on tooltip???
 			if(Main.GameUpdateCount % 180 == 0)
 			{
 				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
+			}
+
+			player.GetModPlayer<SanchoModPlayer>().decrementHardblood();
+			if (player.GetModPlayer<SanchoModPlayer>().hardBlood < 1) // Logic for decreasing hardblood and transforming back
+			{
+				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
+				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+				// Logic to retract the weapon
 			}
 		}
 

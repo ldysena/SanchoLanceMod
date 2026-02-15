@@ -1,4 +1,5 @@
 using LaSangreMod.Common;
+using LaSangreMod.Content.Projectiles;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -33,14 +34,23 @@ namespace LaSangreMod.Content.Weapons
 				Item.StopAnimationOnHurt = true;
 		}
 
-        public override bool CanRightClick()
-        {
-            return true;
-        }
+		public override bool AltFunctionUse(Player player)
+		{
+			if (player.GetModPlayer<SanchoModPlayer>().canUseAscendantBuff()) // TODO: Hardblood condition for transforming
+			{
+				Item.ChangeItemType(ModContent.ItemType<AscendantWeapon>());
+				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = false;
+			}
+			return false; // Return false so it does not attack when we do this?
+		}
+
 
         public override bool OnPickup(Player player)
         {
+			// TODO: Disallow pickup if we have ascendant???? Wierd side case: picking up another La Sangre when you are using it will reset values
+
 			player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
+			player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
             return base.OnPickup(player);
         }
 

@@ -23,9 +23,26 @@ namespace LaSangreMod.Common
 	public class SanchoModPlayer : ModPlayer
 	{
 		// Here we declare the FrostBurnSummon variable which will represent whether this player has the effect or not.
-        public const int HARDBLOOD_MAX = 50000;
+        public const int HARDBLOOD_MAX = 50000; // Maximum hardblood the player can have at once
+		public const int HARDBLOOD_BUFF_REQ = (int)(HARDBLOOD_MAX * 0.5); // Min hardblood needed to right click to transform to ascendant
+		public const int MAX_BUFF_DURATION = 15; // Duration of the Ascendant buff when used at maximum hardblood (in seconds)
+		public const int DECREMENT_PER_TICK = HARDBLOOD_MAX / (MAX_BUFF_DURATION * 60);
+
 		public int hardBlood = 0; // TODO: Reset hardblood when we don't have the weapon / we drop it and only track when we have it
 		public bool canGainHardblood = true;
+
+		// Helper method to check hardblood
+		public bool canUseAscendantBuff()
+		{
+			return hardBlood >= HARDBLOOD_BUFF_REQ;
+		}
+		
+		// Helper method to decrease hardblood
+		public void decrementHardblood()
+		{
+			hardBlood -= DECREMENT_PER_TICK;
+			if (hardBlood < 0) { hardBlood = 0; }
+		}
 
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
         {
@@ -37,6 +54,7 @@ namespace LaSangreMod.Common
         }
 
 		// TODO: Use OnHitNPCWithProj and OnHitNPCWithItem to implement double hardblood gain when using La Sangre itself??
+		// Do it using ModContent.ProjectileType!!!
 		/*public override void OnHitNPCWithProj(Projectile proj, NPC target, NPC.HitInfo hit, int damageDone) 
         {
 			if(hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
