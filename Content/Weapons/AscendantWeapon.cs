@@ -37,11 +37,19 @@ namespace LaSangreMod.Content.Weapons
 		// TODO: Manage side case of dropping the weapon
 		public override bool OnPickup(Player player)
         {
-			// TODO: Disallow pickup if we have an ascendant already???? Wierd side case: picking up another La Sangre when you are using it will reset values
+			// TODO: This logic does not work and also manage case for picking up from a chest
 
+			int prefix = Item.prefix;
 			Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
-			player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
-			player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+			Item.Prefix(prefix);
+
+			// Do not reset hardblood if we alreayd have La Sangre
+			if(!player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && !player.HasItem(ModContent.ItemType<AscendantWeapon>()))
+			{
+				player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
+				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+			}
+			
 
             return base.OnPickup(player);
         }
@@ -60,7 +68,9 @@ namespace LaSangreMod.Content.Weapons
 			player.GetModPlayer<SanchoModPlayer>().decrementHardblood();
 			if (player.GetModPlayer<SanchoModPlayer>().hardBlood < 1) // Logic for decreasing hardblood and transforming back
 			{
+				int prefix = Item.prefix;
 				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
+				Item.Prefix(prefix);
 				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
 				// Logic to retract the weapon
 			}

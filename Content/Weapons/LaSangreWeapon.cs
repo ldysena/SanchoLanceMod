@@ -1,5 +1,7 @@
 using LaSangreMod.Common;
 using LaSangreMod.Content.Projectiles;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
@@ -10,7 +12,6 @@ namespace LaSangreMod.Content.Weapons
 	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class LaSangreWeapon : ModItem
 	{
-			public bool isEnhanced = false;
 			public override void SetDefaults()
 			{
 				// A special method that sets a variety of item parameters that make the item act like a spear weapon.
@@ -38,7 +39,9 @@ namespace LaSangreMod.Content.Weapons
 		{
 			if (player.GetModPlayer<SanchoModPlayer>().canUseAscendantBuff()) // TODO: Hardblood condition for transforming
 			{
+				int prefix = Item.prefix;
 				Item.ChangeItemType(ModContent.ItemType<AscendantWeapon>());
+				Item.Prefix(prefix);
 				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = false;
 			}
 			return false; // Return false so it does not attack when we do this?
@@ -47,10 +50,15 @@ namespace LaSangreMod.Content.Weapons
 
         public override bool OnPickup(Player player)
         {
-			// TODO: Disallow pickup if we have ascendant???? Wierd side case: picking up another La Sangre when you are using it will reset values
+			// TODO: This logic does not work and also manage case for picking up from a chest
 
-			player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
-			player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+			// Do not reset hardblood if we alreayd have La Sangre
+			if(!player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && !player.HasItem(ModContent.ItemType<AscendantWeapon>()))
+			{
+				player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
+				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
+			}
+
             return base.OnPickup(player);
         }
 
@@ -66,6 +74,12 @@ namespace LaSangreMod.Content.Weapons
 				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
 			}
 		}
+
+        public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
+        {
+            base.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
+			// TODO: Draw the hardblood meter
+        }
 
 	}
 }
