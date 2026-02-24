@@ -9,7 +9,6 @@ namespace LaSangreMod.Content.Weapons
 	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class AscendantWeapon : ModItem
 	{
-			public bool isEnhanced = false;
 			public override void SetDefaults()
 			{
 				// A special method that sets a variety of item parameters that make the item act like a spear weapon.
@@ -17,7 +16,7 @@ namespace LaSangreMod.Content.Weapons
 				// The shoot speed will affect how far away the projectile spawns from the player's hand.
 				// If you are using the custom AI in your projectile (and not aiStyle 19 and AIType = ProjectileID.JoustingLance), the standard value is 1f.
 				// If you are using aiStyle 19 and AIType = ProjectileID.JoustingLance, then multiply the value by about 3.5f.
-				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.4f, 18);
+				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.5f, 18);
 
 				Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 
@@ -34,26 +33,6 @@ namespace LaSangreMod.Content.Weapons
 				Item.StopAnimationOnHurt = false;
 		}
 
-		// TODO: Manage side case of dropping the weapon
-		public override bool OnPickup(Player player)
-        {
-			// TODO: This logic does not work and also manage case for picking up from a chest
-
-			int prefix = Item.prefix;
-			Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
-			Item.Prefix(prefix);
-
-			// Do not reset hardblood if we alreayd have La Sangre
-			if(!player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && !player.HasItem(ModContent.ItemType<AscendantWeapon>()))
-			{
-				player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
-				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
-			}
-			
-
-            return base.OnPickup(player);
-        }
-
         public override void UpdateInventory(Player player)
         {
             base.UpdateInventory(player);
@@ -65,15 +44,14 @@ namespace LaSangreMod.Content.Weapons
 				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
 			}
 
-			player.GetModPlayer<SanchoModPlayer>().decrementHardblood();
-			if (player.GetModPlayer<SanchoModPlayer>().hardBlood < 1) // Logic for decreasing hardblood and transforming back
+			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) // Logic for transforming back
 			{
 				int prefix = Item.prefix;
 				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
 				Item.Prefix(prefix);
-				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
-				// Logic to retract the weapon
 			}
+			// Known exploit: you can use Ascendant infinitely if you use it out of a chest. This is awesome so I don't care
+			// But TODO: make it so you can't gain hardblood this way cuz that's lame... nah make ur damage give NEGATIVE HARDBLOOD
 		}
 
 	}

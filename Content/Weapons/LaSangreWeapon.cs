@@ -35,19 +35,16 @@ namespace LaSangreMod.Content.Weapons
 				Item.StopAnimationOnHurt = true;
 		}
 
+		// On right click, tell SanchoModPlayer to check if we can enhance the lance
 		public override bool AltFunctionUse(Player player)
 		{
-			if (player.GetModPlayer<SanchoModPlayer>().canUseAscendantBuff()) // TODO: Hardblood condition for transforming
-			{
-				int prefix = Item.prefix;
-				Item.ChangeItemType(ModContent.ItemType<AscendantWeapon>());
-				Item.Prefix(prefix);
-				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = false;
-			}
+			player.GetModPlayer<SanchoModPlayer>().activateEnhancement();
 			return false; // Return false so it does not attack when we do this?
 		}
 
 
+		// Reset hardblood when picking up
+		// TODO: since we check if we have the item at all times to gain, do we really need thsi???? Not really
         public override bool OnPickup(Player player)
         {
 			// TODO: This logic does not work and also manage case for picking up from a chest
@@ -56,11 +53,19 @@ namespace LaSangreMod.Content.Weapons
 			if(!player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && !player.HasItem(ModContent.ItemType<AscendantWeapon>()))
 			{
 				player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
-				player.GetModPlayer<SanchoModPlayer>().canGainHardblood = true;
 			}
 
             return base.OnPickup(player);
         }
+
+		// Adds damage to hardblood a second time, when hitting with La Sangre
+		// TODO: This does not proc!
+        /*public override void OnHitNPC(Player player, NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            player.GetModPlayer<SanchoModPlayer>().hardBlood += damageDone * 2;
+			if(player.GetModPlayer<SanchoModPlayer>().hardBlood > SanchoModPlayer.HARDBLOOD_MAX) { player.GetModPlayer<SanchoModPlayer>().hardBlood = SanchoModPlayer.HARDBLOOD_MAX; }
+            base.OnHitNPC(player, target, hit, damageDone);
+        }*/
 
         public override void UpdateInventory(Player player)
         {
@@ -73,8 +78,16 @@ namespace LaSangreMod.Content.Weapons
 			{
 				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
 			}
+
+			if (player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
+			{
+				int prefix = Item.prefix;
+				Item.ChangeItemType(ModContent.ItemType<AscendantWeapon>());
+				Item.Prefix(prefix);
+			}
 		}
 
+		// Draws the hardblood meter
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             base.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);

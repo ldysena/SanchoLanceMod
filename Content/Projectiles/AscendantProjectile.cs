@@ -12,39 +12,29 @@ namespace LaSangreMod.Content.Projectiles
 	{
 		public override void SetStaticDefaults()
 		{
-			// This will cause the player to dismount if they are hit by another Jousting Lance.
-			// Since no enemies use Jousting Lances, this will only cause the player to dismount in PVP.
 			ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;
-
-			// This will make sure the velocity of the projectile will always be the shoot speed set in the item.
-			// Since the velocity of the projectile affects how far out the jousting lance will spawn, we want the
-			// velocity to always be the same even if the player has increased attack speed.
 			ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
 		}
 
 		public override void SetDefaults()
 		{
-			Projectile.netImportant = true; // Sync this projectile if a player joins mid game.
+			Projectile.netImportant = true;
 
 			// The width and height do not affect the collision of the Jousting Lance because we calculate that separately (see Colliding() below)
 			Projectile.width = 150;
 			Projectile.height = 150;
 
-			// aiStyle 19 is the AI for Spears. Jousting Lances use the Spear AI. If you set the aiStyle to 19, make sure to set the AIType so it actually behaves like a Jousting Lance.
 			// Since we are using custom AI below, we set the aiStyle to -1.
 			Projectile.aiStyle = -1;
 
-			Projectile.alpha = 255; // The transparency of the projectile, 255 for completely transparent. Our projectile will fade in (see the AI() below).
-			Projectile.friendly = true; // Player shot projectile. Does damage to enemies but not to friendly Town NPCs.
-			Projectile.penetrate = -1; // Infinite penetration. The projectile can hit an infinite number of enemies.
-			Projectile.tileCollide = false; // Don't kill the projectile if it hits a tile.
-			Projectile.scale = 1f; // The scale of the projectile. This only effects the drawing and the width of the collision.
-			Projectile.hide = true; // We are drawing the projectile ourselves. See PreDraw() below.
-			Projectile.ownerHitCheck = true; // Make sure the owner of the projectile has line of sight to the target (aka can't hit things through tile).
-			Projectile.DamageType = DamageClass.MeleeNoSpeed; // Set the damage to melee damage.
-
-			// Act like the normal Jousting Lance. Use this if you set the aiStyle to 19.
-			// AIType = ProjectileID.JoustingLance; 
+			Projectile.alpha = 255; 
+			Projectile.friendly = true; 
+			Projectile.penetrate = -1; 
+			Projectile.tileCollide = false; 
+			Projectile.scale = 1.2f; 
+			Projectile.hide = true; 
+			Projectile.ownerHitCheck = true; 
+			Projectile.DamageType = DamageClass.MeleeNoSpeed; 
 		}
 
 		// This is the behavior of the Jousting Lances.
@@ -140,10 +130,8 @@ namespace LaSangreMod.Content.Projectiles
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
 		{
-			// This will increase or decrease the knockback of the Jousting Lance depending on how fast the player is moving.
+			// Modifiers from player velocity
 			modifiers.Knockback *= Main.player[Projectile.owner].velocity.Length() / 7f;
-
-			// This will increase or decrease the damage of the Jousting Lance depending on how fast the player is moving.
 			modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
 		}
 

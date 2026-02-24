@@ -2,19 +2,19 @@ Mods: {
 	LaSangreMod: {
 		Items: {
 			LaSangreWeapon: {
-				DisplayName: La Sangre Weapon
+				DisplayName: La Sangre
 				Tooltip: ""
 			}
 
 			AscendantWeapon: {
-				DisplayName: Ascendant Weapon
+				DisplayName: Ascendant La Sangre
 				Tooltip: ""
 			}
 		}
 
 		Projectiles: {
-			LaSangreProjectile.DisplayName: La Sangre Projectile
-			AscendantProjectile.DisplayName: Ascendant Projectile
+			LaSangreProjectile.DisplayName: La Sangre
+			AscendantProjectile.DisplayName: Ascendant La Sangre
 		}
 	}
 }
