@@ -2,7 +2,6 @@
   "rootNamespace": "LaSangreMod",
   "fileMap": {
     "Common/SanchoModPlayer.cs": "LaSangreMod.Common",
-    "Content/Weapons/AscendantWeapon.cs": "LaSangreMod.Content.Weapons",
-    "Content/Projectiles/AscendantProjectile.cs": "LaSangreMod.Content.Projectiles"
+    "Common/SanchoHardbloodBar.cs": "LaSangreMod.Common"
   }
 }

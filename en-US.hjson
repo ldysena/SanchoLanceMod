@@ -16,5 +16,7 @@ Mods: {
 			LaSangreProjectile.DisplayName: La Sangre
 			AscendantProjectile.DisplayName: Ascendant La Sangre
 		}
+
+		UI.ExampleResource: Mods.LaSangreMod.UI.ExampleResource
 	}
 }
