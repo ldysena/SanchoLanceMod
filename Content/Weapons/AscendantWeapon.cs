@@ -33,6 +33,21 @@ namespace LaSangreMod.Content.Weapons
 				Item.StopAnimationOnHurt = false;
 		}
 
+		// Transform weapon back and stop channel @ 0 hardblood durring holdout
+        public override void HoldItem(Player player)
+        {
+			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
+			{
+				int prefix = Item.prefix;
+				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
+				Item.Prefix(prefix);
+
+				player.channel = false;
+			}
+
+            base.HoldItem(player);
+        }
+
         public override void UpdateInventory(Player player)
         {
             base.UpdateInventory(player);
@@ -41,17 +56,16 @@ namespace LaSangreMod.Content.Weapons
 			// TODO: Implement final using ModifyTooltip() to display on tooltip???
 			if(Main.GameUpdateCount % 180 == 0)
 			{
-				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
+				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardblood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
 			}
 
-			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) // Logic for transforming back
+			// Transform weapon back @ 0 hardblood in inventory
+			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
 			{
 				int prefix = Item.prefix;
 				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
 				Item.Prefix(prefix);
 			}
-			// Known exploit: you can use Ascendant infinitely if you use it out of a chest. This is awesome so I don't care
-			// But TODO: make it so you can't gain hardblood this way cuz that's lame... nah make ur damage give NEGATIVE HARDBLOOD
 		}
 
 	}

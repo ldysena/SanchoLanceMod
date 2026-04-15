@@ -47,10 +47,13 @@ namespace LaSangreMod.Content.Weapons
 		// On right click, tell SanchoModPlayer to check if we can enhance the lance
 		public override bool AltFunctionUse(Player player)
 		{
-			player.GetModPlayer<SanchoModPlayer>().activateEnhancement();
+			player.GetModPlayer<SanchoModPlayer>().enhanceLaSangre();
+
+			// TODO: Implement "flair" swing on enhance cuz its cool
 			return false; // Return false so it does not attack when we do this?
 		}
 
+		// Updated tooltip with current Hardblood %
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
 			int hardbloodPercent = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>().hardbloodPercent();
@@ -63,18 +66,18 @@ namespace LaSangreMod.Content.Weapons
 
 		// Reset hardblood when picking up
 		// TODO: since we check if we have the item at all times to gain, do we really need thsi???? Not really
-        public override bool OnPickup(Player player)
+        /*public override bool OnPickup(Player player)
         {
 			// TODO: This logic does not work and also manage case for picking up from a chest
 
 			// Do not reset hardblood if we alreayd have La Sangre
 			if(!player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && !player.HasItem(ModContent.ItemType<AscendantWeapon>()))
 			{
-				player.GetModPlayer<SanchoModPlayer>().hardBlood = 0; // Reset hardblood when obtaining weapon
+				player.GetModPlayer<SanchoModPlayer>().hardblood = 0; // Reset hardblood when obtaining weapon
 			}
 
             return base.OnPickup(player);
-        }
+        }*/
 
 		// Adds damage to hardblood a second time, when hitting with La Sangre
 		// TODO: This does not proc!
@@ -88,15 +91,15 @@ namespace LaSangreMod.Content.Weapons
         public override void UpdateInventory(Player player)
         {
             base.UpdateInventory(player);
-			//player.GetModPlayer<SanchoModPlayer>().hardBlood
 			
 			// Temporary way to check hardblood 
 			// TODO: Implement final using ModifyTooltip() to display on tooltip???
 			if(Main.GameUpdateCount % 180 == 0)
 			{
-				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX + " = " + player.GetModPlayer<SanchoModPlayer>().hardbloodPercent());
+				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardblood + " / " + SanchoModPlayer.HARDBLOOD_MAX + " = " + player.GetModPlayer<SanchoModPlayer>().hardbloodPercent());
 			}
 
+			// Change weapon when enhanced
 			if (player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
 			{
 				int prefix = Item.prefix;
@@ -105,11 +108,10 @@ namespace LaSangreMod.Content.Weapons
 			}
 		}
 
-		// Draws the hardblood meter
+		// TODO: Draw another hardblood meter under the item in inventory
         public override void PostDrawInInventory(SpriteBatch spriteBatch, Vector2 position, Rectangle frame, Color drawColor, Color itemColor, Vector2 origin, float scale)
         {
             base.PostDrawInInventory(spriteBatch, position, frame, drawColor, itemColor, origin, scale);
-			// TODO: Draw the hardblood meter
         }
 
 	}
