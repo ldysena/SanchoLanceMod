@@ -3,7 +3,16 @@ Mods: {
 		Items: {
 			LaSangreWeapon: {
 				DisplayName: La Sangre
-				Tooltip: ""
+				Tooltip:
+					'''
+					Build momentumn to increase attack power.
+					Deal melee damage to gain [c/bd0d00:Hardblood]. Gain double 
+					when using {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}. At maximum [c/bd0d00:Hardblood], <right> 
+					to spend all [c/bd0d00:Hardblood] to temporarily enhance {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}
+					into {$Mods.LaSangreMod.Items.AscendantWeapon.DisplayName}.
+					'write my flavor text'
+					'''
+				CurrentHardblood: "[c/bd0d00:CURRENT HARDBLOOD: {0}%]"
 			}
 
 			AscendantWeapon: {

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using LaSangreMod.Common;
 using LaSangreMod.Content.Projectiles;
 using Microsoft.Xna.Framework;
@@ -5,13 +7,20 @@ using Microsoft.Xna.Framework.Graphics;
 using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
+using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
+using Terraria.Localization;
 
 namespace LaSangreMod.Content.Weapons
 {
 	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class LaSangreWeapon : ModItem
 	{
+			public static LocalizedText CurrentHardbloodText { get; private set; }
+        	public override void SetStaticDefaults()
+        	{
+            	CurrentHardbloodText = this.GetLocalization("CurrentHardblood");
+        	}
 			public override void SetDefaults()
 			{
 				// A special method that sets a variety of item parameters that make the item act like a spear weapon.
@@ -41,6 +50,15 @@ namespace LaSangreMod.Content.Weapons
 			player.GetModPlayer<SanchoModPlayer>().activateEnhancement();
 			return false; // Return false so it does not attack when we do this?
 		}
+
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+			int hardbloodPercent = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>().hardbloodPercent();
+			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent.ToString()));
+			currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardbloodPercent
+			tooltips.Add(currentHardblood);
+            base.ModifyTooltips(tooltips);
+        }
 
 
 		// Reset hardblood when picking up
@@ -76,7 +94,7 @@ namespace LaSangreMod.Content.Weapons
 			// TODO: Implement final using ModifyTooltip() to display on tooltip???
 			if(Main.GameUpdateCount % 180 == 0)
 			{
-				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
+				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardBlood + " / " + SanchoModPlayer.HARDBLOOD_MAX + " = " + player.GetModPlayer<SanchoModPlayer>().hardbloodPercent());
 			}
 
 			if (player.GetModPlayer<SanchoModPlayer>().isEnhanced) 

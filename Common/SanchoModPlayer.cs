@@ -24,6 +24,12 @@ namespace LaSangreMod.Common
 			}
 		}
 
+		// Helper method to display hardblood % in tooltip
+		public int hardbloodPercent()
+		{
+			return 100 * hardBlood / HARDBLOOD_MAX;
+		}
+
 		// Manage hardblood here
         public override void PostUpdate()
         {
