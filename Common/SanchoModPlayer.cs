@@ -1,6 +1,7 @@
 using Humanizer;
 using LaSangreMod.Content.Weapons;
 using Terraria;
+using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
@@ -24,6 +25,7 @@ namespace LaSangreMod.Common
 			{ 
 				isEnhanced = true; 
 				readyToEnhance = false;
+				SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f });
 			}
 		}
 
@@ -43,6 +45,8 @@ namespace LaSangreMod.Common
 				{ 
 					hardblood = 0; 
 					isEnhanced = false;
+
+					SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f });
 				}
 			}
 
@@ -70,6 +74,7 @@ namespace LaSangreMod.Common
 				if(hardblood >= HARDBLOOD_MAX) 
 				{ 
 					// TODO: Play SFX
+					SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f });
 
 					hardblood = HARDBLOOD_MAX; 
 					readyToEnhance = true;

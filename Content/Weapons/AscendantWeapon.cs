@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.DataStructures;
 using Terraria.Enums;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace LaSangreMod.Content.Weapons
 {
@@ -26,6 +27,8 @@ namespace LaSangreMod.Content.Weapons
 				Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); // A special method that sets the rarity and value.
 
 				Item.channel = true; // Channel is important for our projectile.
+
+				Item.UseSound = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_3-1") with { Volume = 0.5f };
 
 				// This will make sure our projectile completely disappears on hurt.
 				// It's not enough just to stop the channel, as the lance can still deal damage while being stowed
