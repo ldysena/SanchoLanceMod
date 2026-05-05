@@ -10,6 +10,7 @@ using Terraria.Enums;
 using Terraria.GameContent.ItemDropRules;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.Audio;
 
 namespace LaSangreMod.Content.Weapons
 {
@@ -28,7 +29,7 @@ namespace LaSangreMod.Content.Weapons
 				// The shoot speed will affect how far away the projectile spawns from the player's hand.
 				// If you are using the custom AI in your projectile (and not aiStyle 19 and AIType = ProjectileID.JoustingLance), the standard value is 1f.
 				// If you are using aiStyle 19 and AIType = ProjectileID.JoustingLance, then multiply the value by about 3.5f.
-				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.LaSangreProjectile>(), 1.1f, 18);
+				Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.LaSangreProjectile>(), 1.0f, 18);
 
 				Item.DamageType = DamageClass.MeleeNoSpeed; // We need to use MeleeNoSpeed here so that attack speed doesn't effect our held projectile.
 
@@ -37,6 +38,8 @@ namespace LaSangreMod.Content.Weapons
 				Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); // A special method that sets the rarity and value.
 
 				Item.channel = true; // Channel is important for our projectile.
+
+				//Item.UseSound = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_2-1") with { Volume = 0.5f };
 
 				// This will make sure our projectile completely disappears on hurt.
 				// It's not enough just to stop the channel, as the lance can still deal damage while being stowed
