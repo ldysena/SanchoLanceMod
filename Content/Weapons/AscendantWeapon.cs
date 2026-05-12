@@ -34,33 +34,11 @@ namespace LaSangreMod.Content.Weapons
 				// It's not enough just to stop the channel, as the lance can still deal damage while being stowed
 				// If two players charge at each other, the first one to hit should cancel the other's lance
 				Item.StopAnimationOnHurt = false;
-		}
-
-		// Transform weapon back and stop channel @ 0 hardblood durring holdout
-        public override void HoldItem(Player player)
-        {
-			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
-			{
-				int prefix = Item.prefix;
-				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
-				Item.Prefix(prefix);
-
-				player.channel = false;
-			}
-
-            base.HoldItem(player);
-        }
+		}		
 
         public override void UpdateInventory(Player player)
         {
             base.UpdateInventory(player);
-			
-			// Temporary way to check hardblood 
-			// TODO: Implement final using ModifyTooltip() to display on tooltip???
-			if(Main.GameUpdateCount % 180 == 0)
-			{
-				Main.NewText("Hardblood  = " + player.GetModPlayer<SanchoModPlayer>().hardblood + " / " + SanchoModPlayer.HARDBLOOD_MAX );
-			}
 
 			// Transform weapon back @ 0 hardblood in inventory
 			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
