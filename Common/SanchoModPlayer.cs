@@ -1,59 +1,67 @@
-using Humanizer;
 using LaSangreMod.Content.Weapons;
 using Terraria;
 using Terraria.Audio;
-using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace LaSangreMod.Common
 {
-	// All hardblood (resource) management happens here
+	/// <summary>
+	/// Class for managing Hardblood (resource for La Sangre)
+	/// </summary>
 	public class SanchoModPlayer : ModPlayer
 	{
-        public const int HARDBLOOD_MAX = 15000; // Maximum hardblood the player can have at once, also the amount required to buff the weapon
+        public const int HARDBLOOD_MAX = 15000; // Maximum Hardblood the player can have at once, also the amount required to enhance the weapon
 		public const int MAX_ENHANCE_DURATION = 7; // Duration of enhanced La Sangre (guesstimate in seconds)
-		public const int DECREMENT_PER_TICK = HARDBLOOD_MAX / (MAX_ENHANCE_DURATION * 60); // Due to integer rounding we can't get the exact time but that doens't matter too much over performance
+		public const int DECREMENT_PER_TICK = HARDBLOOD_MAX / (MAX_ENHANCE_DURATION * 60); //  Due to integer rounding we can't match the exact time but that doesn't matter too much
 
-		public int hardblood = 0; // Weapon resource
-		public bool readyToEnhance = false; // Check to play sound when Hardblood is first filled
-		public bool isEnhanced = false; // Check if enhanced La Sangre is being used
+		public int hardblood = 0; // Resource for La Sangre, measured in damage dealt
+		public bool readyToEnhance = false; // Flag to check when Hardblood is full (ie hardblood == HARDBLOOD_MAX)
+		public bool isEnhanced = false; // Flag to check if La Sangre is currently enhanced
 
-		// Helper method to check hardblood requirement to enhance La Sangre
-		public void enhanceLaSangre()
+		public SoundStyle enhanceBegin = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f };
+		public SoundStyle enhanceEnd = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f };
+		public SoundStyle enhanceReady = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f };
+
+		/// <summary>
+		/// Helper method to enhance La Sangre if Hardblood is full
+		/// </summary>
+		public void EnhanceLaSangre()
 		{
 			if(readyToEnhance) 
 			{ 
 				isEnhanced = true; 
 				readyToEnhance = false;
-				SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f });
+				SoundEngine.PlaySound(enhanceBegin);
 			}
 		}
 
-		// Helper method to display hardblood % in tooltip
-		public int hardbloodPercent()
+		/// <summary>
+		/// Helper method to display Hardblood percentage in tooltip
+		/// </summary>
+		/// <returns>Percent of max Hardblood currently held</returns>
+		public int HardbloodPercent()
 		{
 			return 100 * hardblood / HARDBLOOD_MAX;
 		}
 
-		// Decrements hardblood and manages reset during enhanced state
+		// We use Hardblood as a timer to track the duration of the enhanced state
         public override void PostUpdate()
         {
 			if(isEnhanced)
 			{
-				hardblood -= DECREMENT_PER_TICK;
+				hardblood -= DECREMENT_PER_TICK; // Calculated from const values at top of file
 				if (hardblood < 0) 
 				{ 
 					hardblood = 0; 
 					isEnhanced = false;
-
-					SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f });
+					SoundEngine.PlaySound(enhanceEnd);
 				}
 			}
 
             base.PostUpdate();
         }
 
-		// Reset all hardblood variables on death
+		// Resets all Hardblood tracking variables on player death
         public override void UpdateDead()
         {
 			hardblood = 0;
@@ -62,22 +70,21 @@ namespace LaSangreMod.Common
             base.UpdateDead();
         }
 
-		// Tracks all melee damage when not enhanced and adds to hardblood
+		 // We use a ModPlayer to track all melee damage dealt by the player when not enhanced and add to Hardblood
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
         {
 			// If it's slow, is it because of Player.HasItem?
-			if(!isEnhanced && !readyToEnhance && Player.HasItem(ModContent.ItemType<LaSangreWeapon>()) && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed)))
+			if(!isEnhanced && !readyToEnhance && Player.HasItem(ModContent.ItemType<LaSangreWeapon>()) 
+			   && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed)))
             {
-				if(Player.HeldItem.ModItem is LaSangreWeapon) { hardblood += 2 * damageDone; } // La Sangre gets double hardblood
+				if(Player.HeldItem.ModItem is LaSangreWeapon) { hardblood += 2 * damageDone; } // La Sangre gains double Hardblood
 				else { hardblood += damageDone; }
 
 				if(hardblood >= HARDBLOOD_MAX) 
 				{ 
-					// TODO: Play SFX
-					SoundEngine.PlaySound(new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f });
-
 					hardblood = HARDBLOOD_MAX; 
 					readyToEnhance = true;
+					SoundEngine.PlaySound(enhanceReady);
 				}
             }
         }
