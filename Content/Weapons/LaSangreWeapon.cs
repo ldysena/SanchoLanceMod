@@ -5,15 +5,16 @@ using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using System.Buffers.Text;
 
 namespace LaSangreMod.Content.Weapons
 {
-	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class LaSangreWeapon : ModItem
 	{
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MAX_ENHANCE_DURATION);
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
-		// Temp function for exampleresourcebar to function
+		// Sets up dynamic tooltip modification for displaying hardblood info
         public override void SetStaticDefaults()
         {
            	CurrentHardbloodText = this.GetLocalization("CurrentHardblood");
@@ -51,12 +52,17 @@ namespace LaSangreMod.Content.Weapons
 			return false; // Return false so it does not attack when we do this?
 		}
 
-		// Updates tooltip with current Hardblood %
+		// Updates tooltip with current Hardblood
         public override void ModifyTooltips(List<TooltipLine> tooltips)
         {
-			int hardbloodPercent = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>().HardbloodPercent();
-			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent.ToString()));
-			currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardbloodPercent
+			SanchoModPlayer modplayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
+			
+			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
+			string hardblood = modplayer.hardblood.ToString();
+			string hardbloodMax = SanchoModPlayer.HARDBLOOD_MAX.ToString();
+
+			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));
+			//currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardblood?
 			tooltips.Add(currentHardblood);
             base.ModifyTooltips(tooltips);
         }

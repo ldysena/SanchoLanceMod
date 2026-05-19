@@ -1,14 +1,23 @@
+using System.Collections.Generic;
 using LaSangreMod.Common;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using Terraria.Localization;
 
 namespace LaSangreMod.Content.Weapons
 {
-	// Please read https://github.com/tModLoader/tModLoader/wiki/Basic-tModLoader-Modding-Guide#mod-skeleton-contents for more information about the various files in a mod.
 	public class AscendantWeapon : ModItem
 	{
+		public static LocalizedText CurrentHardbloodText { get; private set; }
+
+		// Sets up dynamic tooltip modification for displaying hardblood info
+		public override void SetStaticDefaults()
+        {
+           	CurrentHardbloodText = this.GetLocalization("CurrentHardblood");
+        }
+
 		public override void SetDefaults()
 		{
 			Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.5f, 18);
@@ -32,6 +41,21 @@ namespace LaSangreMod.Content.Weapons
 				Item.Prefix(prefix);
 			}
 		}
+
+		// Updates tooltip with current Hardblood
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+			SanchoModPlayer modplayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
+			
+			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
+			string hardblood = modplayer.hardblood.ToString();
+			string hardbloodMax = SanchoModPlayer.HARDBLOOD_MAX.ToString();
+
+			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));
+			//currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardblood?
+			tooltips.Add(currentHardblood);
+            base.ModifyTooltips(tooltips);
+        }
 
 	}
 }

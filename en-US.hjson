@@ -5,19 +5,19 @@ Mods: {
 				DisplayName: La Sangre
 				Tooltip:
 					'''
+					Deal melee damage to gain [c/c2003a:Hardblood]. Gain double 
+					when using {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
+					to spend all [c/c2003a:Hardblood] to temporarily enhance {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}
+					into {$Mods.LaSangreMod.Items.AscendantWeapon.DisplayName} for {0} seconds.
 					Build momentumn to increase attack power.
-					Deal melee damage to gain [c/bd0d00:Hardblood]. Gain double 
-					when using {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}. At maximum [c/bd0d00:Hardblood], <right> 
-					to spend all [c/bd0d00:Hardblood] to temporarily enhance {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}
-					into {$Mods.LaSangreMod.Items.AscendantWeapon.DisplayName}.
-					'write my flavor text'
 					'''
-				CurrentHardblood: "[c/bd0d00:CURRENT HARDBLOOD: {0}%]"
+				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
 			}
 
 			AscendantWeapon: {
 				DisplayName: Ascendant La Sangre
-				Tooltip: ""
+				Tooltip: "[c/fcd132:'...This lance shall end that festering, slothful dream!']"
+				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
 			}
 		}
 
