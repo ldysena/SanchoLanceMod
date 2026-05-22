@@ -1,6 +1,8 @@
+using System;
 using LaSangreMod.Content.Weapons;
 using Terraria;
 using Terraria.Audio;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 namespace LaSangreMod.Common
@@ -10,6 +12,7 @@ namespace LaSangreMod.Common
 	/// </summary>
 	public class SanchoModPlayer : ModPlayer
 	{
+		// TODO: Make static readonly and refactor naming convention for safety
         public const int HARDBLOOD_MAX = 15000; // Maximum Hardblood the player can have at once, also the amount required to enhance the weapon
 		public const int MAX_ENHANCE_DURATION = 7; // Duration of enhanced La Sangre (guesstimate in seconds)
 		public const int DECREMENT_PER_TICK = HARDBLOOD_MAX / (MAX_ENHANCE_DURATION * 60); //  Due to integer rounding we can't match the exact time but that doesn't matter too much
@@ -73,12 +76,13 @@ namespace LaSangreMod.Common
 		 // We use a ModPlayer to track all melee damage dealt by the player when not enhanced and add to Hardblood
 		public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) 
         {
-			// If it's slow, is it because of Player.HasItem?
-			if(!isEnhanced && !readyToEnhance && Player.HasItem(ModContent.ItemType<LaSangreWeapon>()) 
-			   && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed)))
+			if( !isEnhanced && !readyToEnhance 
+			    && target.type != NPCID.TargetDummy // Prevents target dummy abuse
+			    && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
+			    && Player.HasItem(ModContent.ItemType<LaSangreWeapon>()) ) // Only track if we are holding La Sangre
             {
-				if(Player.HeldItem.ModItem is LaSangreWeapon) { hardblood += 2 * damageDone; } // La Sangre gains double Hardblood
-				else { hardblood += damageDone; }
+				if(Player.HeldItem.ModItem is LaSangreWeapon) { hardblood += 2 * Math.Min(damageDone, target.lifeMax); } // La Sangre gains double Hardblood
+				else { hardblood += Math.Min(damageDone, target.lifeMax); } // We cap Hardblood gain to enemy's max HP to prevent bunny abuse while allowing some 'overflow'
 
 				if(hardblood >= HARDBLOOD_MAX) 
 				{ 
