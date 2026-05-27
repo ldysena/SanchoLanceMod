@@ -11,6 +11,7 @@ namespace LaSangreMod.Content.Projectiles
 {
 	public class AscendantProjectile : ModProjectile
 	{
+        public static readonly float lifestealPercent = 0.05f;
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;
@@ -136,6 +137,19 @@ namespace LaSangreMod.Content.Projectiles
 			modifiers.Knockback *= Main.player[Projectile.owner].velocity.Length() / 7f;
 			modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
 		}
+
+        // Manages lifesteal on hit
+        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+        {
+            Player owner = Main.player[Projectile.owner];
+
+            if(owner.lifeSteal > 0) // For balance, we respect vanilla lifesteal mechanics
+            {
+                int healAmount = (int)(damageDone * lifestealPercent);
+                owner.Heal(healAmount);
+                owner.lifeSteal -= Math.Min(healAmount, owner.statLifeMax - owner.statLife); // Since we deal a lot of damage, we cap lifesteal decrement by current missing HP
+            }
+        }
 
 
 		// This is the custom collision that Jousting Lances uses. 

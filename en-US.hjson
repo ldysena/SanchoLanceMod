@@ -9,6 +9,7 @@ Mods: {
 					when using {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
 					to spend all [c/c2003a:Hardblood] to temporarily enhance {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}
 					into {$Mods.LaSangreMod.Items.AscendantWeapon.DisplayName} for {0} seconds.
+					Steals enemy life on hit.
 					Build momentumn to increase attack power.
 					'''
 				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
