@@ -6,6 +6,7 @@ using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.Localization;
 using System.Buffers.Text;
+using Terraria.ID;
 
 namespace LaSangreMod.Content.Weapons
 {
@@ -65,6 +66,16 @@ namespace LaSangreMod.Content.Weapons
 			//currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardblood?
 			tooltips.Add(currentHardblood);
             base.ModifyTooltips(tooltips);
+        }
+
+        // Weapon should be unlocked by post-Plantera eclipse
+        public override void AddRecipes()
+        {
+            CreateRecipe()
+                .AddIngredient(ItemID.BrokenHeroSword)
+                .AddIngredient(ItemID.BloodMoonStarter)
+                .AddTile(TileID.MythrilAnvil)
+                .Register();
         }
 	}
 }
