@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using LaSangreMod.Common;
+using SanchoLanceMod.Common;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.Audio;
 using Terraria.Localization;
 
-namespace LaSangreMod.Content.Weapons
+namespace SanchoLanceMod.Content.Weapons
 {
-	public class AscendantWeapon : ModItem
+	public class SanchoLanceEnhanced : ModItem
 	{
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
@@ -20,12 +20,12 @@ namespace LaSangreMod.Content.Weapons
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.AscendantProjectile>(), 1.5f, 18);
+			Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.SanchoLanceEnhancedProjectile>(), 1.5f, 18);
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.SetWeaponValues(600, 12f, 0);
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 1, 5)); // TODO: make a crazy item color????
 			Item.channel = true; 
-			Item.UseSound = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_3-1") with { Volume = 0.5f };
+			Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_3-1") with { Volume = 0.5f };
 			Item.StopAnimationOnHurt = false;
 		}		
 
@@ -37,7 +37,7 @@ namespace LaSangreMod.Content.Weapons
 			if (!player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
 			{
 				int prefix = Item.prefix;
-				Item.ChangeItemType(ModContent.ItemType<LaSangreWeapon>());
+				Item.ChangeItemType(ModContent.ItemType<SanchoLance>());
 				Item.Prefix(prefix);
 			}
 		}

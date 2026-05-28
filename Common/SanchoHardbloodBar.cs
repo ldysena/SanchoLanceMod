@@ -7,10 +7,10 @@ using Terraria.GameContent.UI.Elements;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.UI;
-using LaSangreMod.Content.Weapons;
-using LaSangreMod.Common;
+using SanchoLanceMod.Content.Weapons;
+using SanchoLanceMod.Common;
 
-namespace LaSangreMod.Common
+namespace SanchoLanceMod.Common
 {
 	// This custom UI will show whenever the player is holding the ExampleCustomResourceWeapon item and will display the player's custom resource amounts that are tracked in ExampleResourcePlayer
 	internal class SanchoHardbloodBar : UIState
@@ -32,7 +32,7 @@ namespace LaSangreMod.Common
 			area.Width.Set(40, 0f); 
 			area.Height.Set(20, 0f);
 
-			barFrame = new UIImage(ModContent.Request<Texture2D>("LaSangreMod/Common/temphardbloodbar")); // Frame of our resource bar
+			barFrame = new UIImage(ModContent.Request<Texture2D>("SanchoLanceMod/Common/temphardbloodbar")); // Frame of our resource bar
 			barFrame.Left.Set(22, 0f);
 			barFrame.Top.Set(0, 0f);
 			barFrame.Width.Set(36, 0f);
@@ -54,8 +54,8 @@ namespace LaSangreMod.Common
 
 		public override void Draw(SpriteBatch spriteBatch) 
 		{
-			if (!Main.LocalPlayer.HasItem(ModContent.ItemType<LaSangreWeapon>()) &&
-			    !Main.LocalPlayer.HasItem(ModContent.ItemType<AscendantWeapon>()))
+			if (!Main.LocalPlayer.HasItem(ModContent.ItemType<SanchoLance>()) &&
+			    !Main.LocalPlayer.HasItem(ModContent.ItemType<SanchoLanceEnhanced>()))
 				{ return; }
 
 			base.Draw(spriteBatch);

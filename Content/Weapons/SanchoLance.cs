@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using LaSangreMod.Common;
-using LaSangreMod.Content.Projectiles;
+using SanchoLanceMod.Common;
+using SanchoLanceMod.Content.Projectiles;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
@@ -8,9 +8,9 @@ using Terraria.Localization;
 using System.Buffers.Text;
 using Terraria.ID;
 
-namespace LaSangreMod.Content.Weapons
+namespace SanchoLanceMod.Content.Weapons
 {
-	public class LaSangreWeapon : ModItem
+	public class SanchoLance : ModItem
 	{
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MAX_ENHANCE_DURATION);
 		public static LocalizedText CurrentHardbloodText { get; private set; }
@@ -23,7 +23,7 @@ namespace LaSangreMod.Content.Weapons
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToSpear(ModContent.ProjectileType<LaSangreProjectile>(), 1.0f, 18);
+			Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1.0f, 18);
 
 			Item.DamageType = DamageClass.MeleeNoSpeed; 
 			Item.SetWeaponValues(180, 12f, 0);
@@ -40,7 +40,7 @@ namespace LaSangreMod.Content.Weapons
 			if (player.GetModPlayer<SanchoModPlayer>().isEnhanced) 
 			{
 				int prefix = Item.prefix;
-				Item.ChangeItemType(ModContent.ItemType<AscendantWeapon>());
+				Item.ChangeItemType(ModContent.ItemType<SanchoLanceEnhanced>());
 				Item.Prefix(prefix);
 			}
 		}

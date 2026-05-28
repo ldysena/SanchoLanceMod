@@ -1,11 +1,11 @@
 using System;
-using LaSangreMod.Content.Weapons;
+using SanchoLanceMod.Content.Weapons;
 using Terraria;
 using Terraria.Audio;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LaSangreMod.Common
+namespace SanchoLanceMod.Common
 {
 	/// <summary>
 	/// Class for managing Hardblood (resource for La Sangre)
@@ -21,9 +21,9 @@ namespace LaSangreMod.Common
 		public bool readyToEnhance = false; // Flag to check when Hardblood is full (ie hardblood == HARDBLOOD_MAX)
 		public bool isEnhanced = false; // Flag to check if La Sangre is currently enhanced
 
-		public SoundStyle enhanceBegin = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f };
-		public SoundStyle enhanceEnd = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f };
-		public SoundStyle enhanceReady = new SoundStyle("LaSangreMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f };
+		public SoundStyle enhanceBegin = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f };
+		public SoundStyle enhanceEnd = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f };
+		public SoundStyle enhanceReady = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f };
 
 		/// <summary>
 		/// Helper method to enhance La Sangre if Hardblood is full
@@ -79,9 +79,9 @@ namespace LaSangreMod.Common
 			if( !isEnhanced && !readyToEnhance 
 			    && target.type != NPCID.TargetDummy // Prevents target dummy abuse
 			    && (hit.DamageType.CountsAsClass(DamageClass.Melee) || hit.DamageType.CountsAsClass(DamageClass.MeleeNoSpeed))
-			    && Player.HasItem(ModContent.ItemType<LaSangreWeapon>()) ) // Only track if we are holding La Sangre
+			    && Player.HasItem(ModContent.ItemType<SanchoLance>()) ) // Only track if we are holding La Sangre
             {
-				if(Player.HeldItem.ModItem is LaSangreWeapon) { hardblood += 2 * Math.Min(damageDone, target.lifeMax); } // La Sangre gains double Hardblood
+				if(Player.HeldItem.ModItem is SanchoLance) { hardblood += 2 * Math.Min(damageDone, target.lifeMax); } // La Sangre gains double Hardblood
 				else { hardblood += Math.Min(damageDone, target.lifeMax); } // We cap Hardblood gain to enemy's max HP to prevent bunny abuse while allowing some 'overflow'
 
 				if(hardblood >= HARDBLOOD_MAX) 

@@ -1,21 +1,21 @@
 Mods: {
-	LaSangreMod: {
+	SanchoLanceMod: {
 		Items: {
-			LaSangreWeapon: {
+			SanchoLance: {
 				DisplayName: La Sangre
 				Tooltip:
 					'''
 					Deal melee damage to gain [c/c2003a:Hardblood]. Gain double 
-					when using {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
-					to spend all [c/c2003a:Hardblood] to temporarily enhance {$Mods.LaSangreMod.Items.LaSangreWeapon.DisplayName}
-					into {$Mods.LaSangreMod.Items.AscendantWeapon.DisplayName} for {0} seconds.
+					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
+					to spend all [c/c2003a:Hardblood] to temporarily enhance {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}
+					into {$Mods.SanchoLanceMod.Items.SanchoLanceEnhanced.DisplayName} for {0} seconds.
 					Steals enemy life on hit.
 					Build momentumn to increase attack power.
 					'''
 				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
 			}
 
-			AscendantWeapon: {
+			SanchoLanceEnhanced: {
 				DisplayName: Ascendant La Sangre
 				Tooltip: "[c/fcd132:'...This lance shall end that festering, slothful dream!']"
 				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
@@ -23,10 +23,10 @@ Mods: {
 		}
 
 		Projectiles: {
-			LaSangreProjectile.DisplayName: La Sangre
-			AscendantProjectile.DisplayName: Ascendant La Sangre
+			SanchoLanceProjectile.DisplayName: La Sangre
+			SanchoLanceEnhancedProjectile.DisplayName: Ascendant La Sangre
 		}
 
-		UI.ExampleResource: Mods.LaSangreMod.UI.ExampleResource
+		UI.ExampleResource: Mods.SanchoLanceMod.UI.ExampleResource
 	}
 }

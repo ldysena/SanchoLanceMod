@@ -6,9 +6,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LaSangreMod.Content.Projectiles
+namespace SanchoLanceMod.Content.Projectiles
 {
-	public class LaSangreProjectile : ModProjectile
+	public class SanchoLanceProjectile : ModProjectile
 	{
         public static readonly float lifestealPercent = 0.025f;
 

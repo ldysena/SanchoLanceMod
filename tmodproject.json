@@ -1,7 +1,7 @@
 {
-  "rootNamespace": "LaSangreMod",
+  "rootNamespace": "SanchoLanceMod",
   "fileMap": {
-    "Common/SanchoModPlayer.cs": "LaSangreMod.Common",
-    "Common/SanchoHardbloodBar.cs": "LaSangreMod.Common"
+    "Common/SanchoModPlayer.cs": "SanchoLanceMod.Common",
+    "Common/SanchoHardbloodBar.cs": "SanchoLanceMod.Common"
   }
 }

@@ -1,4 +1,4 @@
-using LaSangreMod.Common;
+using SanchoLanceMod.Common;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -7,9 +7,9 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace LaSangreMod.Content.Projectiles
+namespace SanchoLanceMod.Content.Projectiles
 {
-	public class AscendantProjectile : ModProjectile
+	public class SanchoLanceEnhancedProjectile : ModProjectile
 	{
         public static readonly float lifestealPercent = 0.05f;
 		public override void SetStaticDefaults()
