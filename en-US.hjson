@@ -7,8 +7,7 @@ Mods: {
 					'''
 					Deal melee damage to gain [c/c2003a:Hardblood]. Gain double 
 					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
-					to spend all [c/c2003a:Hardblood] to temporarily enhance {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}
-					into {$Mods.SanchoLanceMod.Items.SanchoLanceEnhanced.DisplayName} for {0} seconds.
+					to greatly enhance all stats for {0} seconds.
 					Steals enemy life on hit.
 					Build momentumn to increase attack power.
 					'''
@@ -26,6 +25,5 @@ Mods: {
 			SanchoLanceProjectile.DisplayName: La Sangre
 			SanchoLanceEnhancedProjectile.DisplayName: Ascendant La Sangre
 		}
-
 	}
 }
