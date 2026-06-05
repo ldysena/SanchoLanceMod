@@ -27,6 +27,5 @@ Mods: {
 			SanchoLanceEnhancedProjectile.DisplayName: Ascendant La Sangre
 		}
 
-		UI.ExampleResource: Mods.SanchoLanceMod.UI.ExampleResource
 	}
 }

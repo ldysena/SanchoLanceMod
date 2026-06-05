@@ -9,26 +9,33 @@ using Terraria.ModLoader;
 using Terraria.UI;
 using SanchoLanceMod.Content.Weapons;
 using SanchoLanceMod.Common;
+using Humanizer;
+using System.Numerics;
+using ReLogic.Content.Sources;
+
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace SanchoLanceMod.Common
 {
-	// This custom UI will show whenever the player is holding the ExampleCustomResourceWeapon item and will display the player's custom resource amounts that are tracked in ExampleResourcePlayer
+	/// <summary>
+    /// UIElement to display a hardblood resource bar when La Sangre is being held
+    /// </summary>
 	internal class SanchoHardbloodBar : UIState
 	{
 		// For this bar we'll be using a frame texture and then a gradient inside bar, as it's one of the more simpler approaches while still looking decent.
 		// Once this is all set up make sure to go and do the required stuff for most UI's in the ModSystem class.
-		private UIText text;
 		public UIElement area; // Temporarily make public for the sake of fixing this
 		private UIImage barFrame;
 		private Color gradientA;
 		private Color gradientB;
 
-		public override void OnInitialize() {
+		public override void OnInitialize() 
+        {
 			// Create a UIElement for all the elements to sit on top of, this simplifies the numbers as nested elements can be positioned relative to the top left corner of this element. 
 			// UIElement is invisible and has no padding.
-			area = new UIElement();
-			area.Left.Set(Main.screenWidth / 2 - 40, 0f); // Align the bar with the player
-			area.Top.Set(Main.screenHeight / 2 + 30, 0f); // Placing it just a bit below the player
+			area = new UIElement(); 
+            area.Left.Set(500, 0f); // Dummy values. We set the position under the player when we load the UIsystem
+            area.Top.Set(40, 0f); 
 			area.Width.Set(40, 0f); 
 			area.Height.Set(20, 0f);
 
@@ -38,31 +45,27 @@ namespace SanchoLanceMod.Common
 			barFrame.Width.Set(36, 0f);
 			barFrame.Height.Set(16, 0f);
 
-			/*text = new UIText("0/0", 0.8f); // text to show stat
-			text.Width.Set(138, 0f);
-			text.Height.Set(34, 0f);
-			text.Top.Set(40, 0f);
-			text.Left.Set(0, 0f);*/
-
 			gradientA = new Color(131, 0, 70); // A dark purple
 			gradientB = new Color(255, 73, 73); // Bright red
 
-			//area.Append(text);
 			area.Append(barFrame);
 			Append(area);
 		}
 
 		public override void Draw(SpriteBatch spriteBatch) 
 		{
-			if (!Main.LocalPlayer.HasItem(ModContent.ItemType<SanchoLance>()) &&
-			    !Main.LocalPlayer.HasItem(ModContent.ItemType<SanchoLanceEnhanced>()))
-				{ return; }
+			if (Main.LocalPlayer.HeldItem.ModItem is not SanchoLance 
+                && Main.LocalPlayer.HeldItem.ModItem is not SanchoLanceEnhanced)
+			{  
+                return; 
+            }
 
 			base.Draw(spriteBatch);
 		}
 
 		// Here we draw our UI
-		protected override void DrawSelf(SpriteBatch spriteBatch) {
+		protected override void DrawSelf(SpriteBatch spriteBatch) 
+        {
 			base.DrawSelf(spriteBatch);
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
@@ -81,76 +84,75 @@ namespace SanchoLanceMod.Common
 			int left = hitbox.Left;
 			int right = hitbox.Right;
 			int steps = (int)((right - left) * quotient);
-			for (int i = 0; i < steps; i += 1) {
+			for (int i = 0; i < steps; i += 1) 
+            {
 				// float percent = (float)i / steps; // Alternate Gradient Approach
 				float percent = (float)i / (right - left);
 				spriteBatch.Draw(TextureAssets.MagicPixel.Value, new Rectangle(left + i, hitbox.Y, 1, hitbox.Height), Color.Lerp(gradientA, gradientB, percent));
 			}
 		}
-
-		/*public override void Update(GameTime gameTime) {
-			if (Main.LocalPlayer.HeldItem.ModItem is not LaSangreWeapon &&
-			    Main.LocalPlayer.HeldItem.ModItem is not AscendantWeapon)
-				return;
-
-			var modPlayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
-			// Setting the text per tick to update and show our resource values.
-			//text.SetText(ExampleResourceUISystem.ExampleResourceText.Format(modPlayer.hardblood, SanchoModPlayer.HARDBLOOD_MAX));
-			base.Update(gameTime);
-		}*/
+        
+		// Helper method to place the bar under the player
+		public void SetPosition(Vector2 v)
+		{
+            Vector2 playerScreenPosition = Main.LocalPlayer.Center - Main.screenPosition;
+            Main.NewText("Screen Position " + playerScreenPosition.X + ", " + playerScreenPosition.Y);
+			area.Left.Set(playerScreenPosition.X - 6f, 0f); // Align the bar with the player
+			area.Top.Set(playerScreenPosition.Y - 20f, 0f); // Placing it just a bit below the player
+		}
 	}
 
 	// This class will only be autoloaded/registered if we're not loading on a server
 	[Autoload(Side = ModSide.Client)]
 	internal class ExampleResourceUISystem : ModSystem
 	{
-		
-		private UserInterface ExampleResourceBarUserInterface;
-
-		internal SanchoHardbloodBar ExampleResourceBar;
-
+		private UserInterface HardbloodBarUserInterface;
+		internal SanchoHardbloodBar HardbloodBar;
 		public static LocalizedText ExampleResourceText { get; private set; }
 
-		public override void Load() {
-			ExampleResourceBar = new();
-			ExampleResourceBarUserInterface = new();
-			ExampleResourceBarUserInterface.SetState(ExampleResourceBar);
-
-			string category = "UI";
-			ExampleResourceText ??= Mod.GetLocalization($"{category}.ExampleResource");
+		public override void Load() 
+        {
+			HardbloodBar = new();
+			HardbloodBarUserInterface = new();
+			HardbloodBarUserInterface.SetState(HardbloodBar);
 		}
 
-		// Event handling to keep the bar under the player when changing the screen size
-		// TODO: Make helper method instead of public vars?
-		public void ResetHardbloodBar(Vector2 v)
-		{
-			ExampleResourceBar.area.Left.Set(Main.screenWidth / 2 - 40, 0f); // Align the bar with the player
-			ExampleResourceBar.area.Top.Set(Main.screenHeight / 2 + 30, 0f); // Placing it just a bit below the player
-		}
+        /*public override void OnWorldLoad()
+        {
+            //HardbloodBar.SetPosition(new Vector2()); //TODO: I have no idea why this is so finnicky
+            base.OnWorldLoad();
+        }
 
+        // Event handling to keep the bar under the player when changing the screen size
         public override void OnModLoad()
         {
-			Main.OnResolutionChanged += ResetHardbloodBar;
+			Main.OnResolutionChanged += HardbloodBar.SetPosition;
+            
             base.OnModLoad();
         }
 
 		public override void OnModUnload()
-         {
-			Main.OnResolutionChanged -= ResetHardbloodBar;
+        {
+			Main.OnResolutionChanged -= HardbloodBar.SetPosition;
             base.OnModUnload();
-        }
+        }*/
  
-		public override void UpdateUI(GameTime gameTime) {
-			ExampleResourceBarUserInterface?.Update(gameTime);
+		public override void UpdateUI(GameTime gameTime) 
+        {
+			HardbloodBarUserInterface?.Update(gameTime);
 		}
 
-		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) {
+		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) 
+        {
 			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
-			if (resourceBarIndex != -1) {
-				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer(
-					"ExampleMod: Example Resource Bar",
-					delegate {
-						ExampleResourceBarUserInterface.Draw(Main.spriteBatch, new GameTime());
+			if (resourceBarIndex != -1) 
+            {
+				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer
+                (
+					"SanchoLanceMod: Hardblood Bar",
+					delegate 
+                    {
+						HardbloodBarUserInterface.Draw(Main.spriteBatch, new GameTime());
 						return true;
 					},
 					InterfaceScaleType.UI)
