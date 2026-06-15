@@ -157,7 +157,7 @@ namespace SanchoLanceMod.Content.Projectiles
         {
             Player owner = Main.player[Projectile.owner];
 
-            if(owner.lifeSteal > 0) // For balance, we respect vanilla lifesteal mechanics
+            if(owner.lifeSteal > 0 && target.type != NPCID.TargetDummy) // For balance, we respect vanilla lifesteal mechanics
             {
                 int healAmount = (int)(damageDone * lifestealPercent);
                 owner.Heal(healAmount);
