@@ -6,12 +6,22 @@ using Terraria;
 using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
+using Terraria.Audio;
 
 namespace SanchoLanceMod.Content.Projectiles
 {
 	public class SanchoLanceEnhancedProjectile : ModProjectile
 	{
         public static readonly float lifestealPercent = 0.05f;
+        public static readonly float minSpeedForHitSound = 6f;
+
+        public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sancholance-hit_", 2) with 
+        { 
+            Volume = 0.4f,
+            MaxInstances = 5,
+            SoundLimitBehavior = SoundLimitBehavior.IgnoreNew 
+        };
+
 		public override void SetStaticDefaults()
 		{
 			ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;
@@ -37,6 +47,10 @@ namespace SanchoLanceMod.Content.Projectiles
 			Projectile.hide = true; 
 			Projectile.ownerHitCheck = true; 
 			Projectile.DamageType = DamageClass.MeleeNoSpeed; 
+
+            // We use static immunity to set hit rate since a player will only have one of the projectile
+            //Projectile.usesIDStaticNPCImmunity = true;
+            //Projectile.idStaticNPCHitCooldown = 5;
 		}
 
 		// This is the behavior of the Jousting Lances.
@@ -138,7 +152,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			modifiers.SourceDamage *= 0.1f + Main.player[Projectile.owner].velocity.Length() / 7f * 0.9f;
 		}
 
-        // Manages lifesteal on hit
+        // Manages lifesteal and plays audio on hit
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
         {
             Player owner = Main.player[Projectile.owner];
@@ -149,6 +163,12 @@ namespace SanchoLanceMod.Content.Projectiles
                 owner.Heal(healAmount);
                 owner.lifeSteal -= Math.Min(healAmount, owner.statLifeMax - owner.statLife); // Since we deal a lot of damage, we cap lifesteal decrement by current missing HP
             }
+
+            if(owner.velocity.Length() > minSpeedForHitSound) // We check speed for hitSound b/c it is annoying
+            {
+                SoundEngine.PlaySound(hitSound, target.position);
+            }
+            
         }
 
 

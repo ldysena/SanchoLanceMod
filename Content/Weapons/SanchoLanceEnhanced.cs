@@ -25,7 +25,7 @@ namespace SanchoLanceMod.Content.Weapons
 			Item.SetWeaponValues(600, 12f, 0);
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 1, 5)); // TODO: make a crazy item color????
 			Item.channel = true; 
-			Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_3-1") with { Volume = 0.5f };
+			Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/biguse_", 2) with { Volume = 0.4f };
 			Item.StopAnimationOnHurt = false;
 		}		
 

@@ -5,6 +5,7 @@ using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
 using Terraria.Localization;
+using Terraria.Audio;
 using System.Buffers.Text;
 using Terraria.ID;
 
@@ -29,6 +30,7 @@ namespace SanchoLanceMod.Content.Weapons
 			Item.SetWeaponValues(180, 12f, 0);
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); 
 			Item.channel = true;
+            Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
 			Item.StopAnimationOnHurt = true;
 		}
 		

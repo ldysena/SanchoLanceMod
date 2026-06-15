@@ -21,9 +21,9 @@ namespace SanchoLanceMod.Common
 		public bool readyToEnhance = false; // Flag to check when Hardblood is full (ie hardblood == HARDBLOOD_MAX)
 		public bool isEnhanced = false; // Flag to check if La Sangre is currently enhanced
 
-		public SoundStyle enhanceBegin = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_1-1") with { Volume = 0.7f };
-		public SoundStyle enhanceEnd = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_3_4-1") with { Volume = 0.7f };
-		public SoundStyle enhanceReady = new SoundStyle("SanchoLanceMod/Assets/Sounds/sanchodon_c_1") with { Volume = 0.7f };
+		public SoundStyle enhanceBegin = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhancesound") with { Volume = 0.7f };
+		public SoundStyle enhanceEnd = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceend") with { Volume = 0.7f };
+		public SoundStyle enhanceReady = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceready") with { Volume = 0.7f };
 
 		/// <summary>
 		/// Helper method to enhance La Sangre if Hardblood is full
