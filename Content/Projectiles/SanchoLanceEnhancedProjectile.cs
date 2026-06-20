@@ -43,14 +43,14 @@ namespace SanchoLanceMod.Content.Projectiles
 			Projectile.friendly = true; 
 			Projectile.penetrate = -1; 
 			Projectile.tileCollide = false; 
-			Projectile.scale = 1.2f; 
+			Projectile.scale = 1f; 
 			Projectile.hide = true; 
 			Projectile.ownerHitCheck = true; 
 			Projectile.DamageType = DamageClass.MeleeNoSpeed; 
 
             // We use static immunity to set hit rate since a player will only have one of the projectile
-            //Projectile.usesIDStaticNPCImmunity = true;
-            //Projectile.idStaticNPCHitCooldown = 5;
+            Projectile.usesIDStaticNPCImmunity = true;
+            Projectile.idStaticNPCHitCooldown = 5;
 		}
 
 		// This is the behavior of the Jousting Lances.
@@ -177,7 +177,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		{
 			float rotationFactor = Projectile.rotation + (float)Math.PI / 4f; // The rotation of the Jousting Lance.
 			float scaleFactor = 175f; // How far back the hit-line will be from the tip of the Jousting Lance. You will need to modify this if you have a longer or shorter Jousting Lance. Vanilla uses 95f
-			float widthMultiplier = 35f; // How thick the hit-line is. Increase or decrease this value if your Jousting Lance is thicker or thinner. Vanilla uses 23f
+			float widthMultiplier = 46f; // How thick the hit-line is. Increase or decrease this value if your Jousting Lance is thicker or thinner. Vanilla uses 23f
 			float collisionPoint = 0f; // collisionPoint is needed for CheckAABBvLineCollision(), but it isn't used for our collision here. Keep it at 0f.
 
 			// This Rectangle is the width and height of the Jousting Lance's hitbox which is used for the first step of collision.

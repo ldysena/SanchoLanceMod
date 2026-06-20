@@ -24,10 +24,10 @@ namespace SanchoLanceMod.Content.Weapons
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1.0f, 18);
+			Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1f, 18);
 
 			Item.DamageType = DamageClass.MeleeNoSpeed; 
-			Item.SetWeaponValues(180, 12f, 0);
+			Item.SetWeaponValues(110, 15f, 0);
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); 
 			Item.channel = true;
             Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
