@@ -18,8 +18,8 @@ namespace SanchoLanceMod.Content.Projectiles
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sancholance-hit_", 2) with 
         { 
             Volume = 0.4f,
-            MaxInstances = 5,
-            SoundLimitBehavior = SoundLimitBehavior.IgnoreNew 
+            MaxInstances = 2,
+            SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest 
         };
 
 		public override void SetStaticDefaults()
@@ -43,7 +43,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			Projectile.friendly = true; 
 			Projectile.penetrate = -1; 
 			Projectile.tileCollide = false; 
-			Projectile.scale = 1f; 
+			Projectile.scale = 1.1f; 
 			Projectile.hide = true; 
 			Projectile.ownerHitCheck = true; 
 			Projectile.DamageType = DamageClass.MeleeNoSpeed; 

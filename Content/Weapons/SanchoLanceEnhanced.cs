@@ -20,7 +20,7 @@ namespace SanchoLanceMod.Content.Weapons
 
 		public override void SetDefaults()
 		{
-			Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.SanchoLanceEnhancedProjectile>(), 1.3f, 18);
+			Item.DefaultToSpear(ModContent.ProjectileType<Projectiles.SanchoLanceEnhancedProjectile>(), 1.4f, 18);
 			Item.DamageType = DamageClass.MeleeNoSpeed;
 			Item.SetWeaponValues(390, 10f, 0);
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 1, 5)); // TODO: make a crazy item color????
