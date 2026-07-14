@@ -17,7 +17,7 @@ namespace SanchoLanceMod.Common
 		public const int MAX_ENHANCE_DURATION = 7; // Duration of enhanced La Sangre (guesstimate in seconds)
 		public const int DECREMENT_PER_TICK = HARDBLOOD_MAX / (MAX_ENHANCE_DURATION * 60); //  Due to integer rounding we can't match the exact time but that doesn't matter too much
 
-		public int hardblood = 0; // Resource for La Sangre, measured in damage dealt
+		public int hardblood = 0; // Resource for La Sangre, measured in damage dealt (externally called "Bloodfeast")
 		public bool readyToEnhance = false; // Flag to check when Hardblood is full (ie hardblood == HARDBLOOD_MAX)
 		public bool isEnhanced = false; // Flag to check if La Sangre is currently enhanced
 

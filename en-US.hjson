@@ -5,19 +5,19 @@ Mods: {
 				DisplayName: La Sangre
 				Tooltip:
 					'''
-					Deal melee damage to gain [c/c2003a:Hardblood]. Gain double 
-					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Hardblood], <right> 
+					Deal melee damage to gain [c/c2003a:Bloodfeast]. Gain double 
+					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Bloodfeast], <right> 
 					to greatly enhance all stats for {0} seconds.
 					Steals enemy life on hit.
 					Build momentumn to increase attack power.
 					'''
-				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
+				CurrentHardblood: "[c/c2003a:BLOODFEAST: {0}% ({1} / {2})]"
 			}
 
 			SanchoLanceEnhanced: {
 				DisplayName: Ascendant La Sangre
 				Tooltip: "[c/fcd132:'...This lance shall end that festering, slothful dream!']"
-				CurrentHardblood: "[c/c2003a:HARDBLOOD: {0}% ({1} / {2})]"
+				CurrentHardblood: "[c/c2003a:BLOODFEAST: {0}% ({1} / {2})]"
 			}
 		}
 
