@@ -144,7 +144,8 @@ namespace SanchoLanceMod.Common
 
 		public override void ModifyInterfaceLayers(List<GameInterfaceLayer> layers) 
         {
-			int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
+            // Commented out to disable bar
+			/*int resourceBarIndex = layers.FindIndex(layer => layer.Name.Equals("Vanilla: Resource Bars"));
 			if (resourceBarIndex != -1) 
             {
 				layers.Insert(resourceBarIndex, new LegacyGameInterfaceLayer
@@ -157,7 +158,7 @@ namespace SanchoLanceMod.Common
 					},
 					InterfaceScaleType.UI)
 				);
-			}
+			}*/
 		}
 	}
 }
