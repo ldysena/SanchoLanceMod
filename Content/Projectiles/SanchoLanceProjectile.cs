@@ -9,10 +9,11 @@ using Terraria.Audio;
 
 namespace SanchoLanceMod.Content.Projectiles
 {
+    // Code modified from tModLoader's ExampleMod
 	public class SanchoLanceProjectile : ModProjectile
 	{
-        public static readonly float lifestealPercent = 0.025f;
-        public static readonly float minSpeedForHitSound =  6f;
+        public static readonly float LifestealPercent = 0.025f;
+        public static readonly float MinHitsoundVelocity =  6f;
 
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smallhit_", 2) with 
         { 
@@ -86,9 +87,6 @@ namespace SanchoLanceMod.Content.Projectiles
 
 			Vector2 center = owner.RotatedRelativePoint(owner.MountedCenter); // Get the center of the owner. This accounts for the player being shifted up or down while riding a mount, sitting in a chair, etc.
 			Projectile.Center = center; // Set the center of the projectile to the center of the owner. Projectile.Center is now actually the tip of the Jousting Lance.
-
-			// TODO: We should be able to get the lance to follow the mouse by changing Projectsile.velocity to be based on the mouse position and player position
-
 			Projectile.position += Projectile.velocity * tipDist; // The projectile velocity contains the orientation of the lance, multiply it by the tipDist to position the tip.
 
 			// Set the rotation of the projectile.
@@ -157,12 +155,12 @@ namespace SanchoLanceMod.Content.Projectiles
 
             if(owner.lifeSteal > 0 && target.type != NPCID.TargetDummy) // For balance, we respect vanilla lifesteal mechanics
             {
-                int healAmount = (int)(damageDone * lifestealPercent);
+                int healAmount = (int)(damageDone * LifestealPercent);
                 owner.Heal(healAmount);
                 owner.lifeSteal -= Math.Min(healAmount, owner.statLifeMax - owner.statLife); // Since we deal a lot of damage, we cap lifesteal decrement by current missing HP
             }
 
-             if(owner.velocity.Length() > minSpeedForHitSound) // We check speed for hitSound b/c it is annoying
+            if(owner.velocity.Length() > MinHitsoundVelocity) // We check speed for hitSound b/c it is annoying
             {
                 SoundEngine.PlaySound(hitSound, target.position);
             }

@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SanchoLanceMod.Common;
+using SanchoLanceMod.Common.Players;
 using SanchoLanceMod.Content.Projectiles;
 using Terraria;
 using Terraria.Enums;
@@ -13,7 +13,7 @@ namespace SanchoLanceMod.Content.Weapons
 {
 	public class SanchoLance : ModItem
 	{
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MAX_ENHANCE_DURATION);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MaxEnhanceDuration);
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
 		// Sets up dynamic tooltip modification for displaying hardblood info
@@ -51,7 +51,7 @@ namespace SanchoLanceMod.Content.Weapons
 		public override bool AltFunctionUse(Player player)
 		{
 			// TODO: Implement "flair" swing on successful enhance
-			player.GetModPlayer<SanchoModPlayer>().EnhanceLaSangre();
+			player.GetModPlayer<SanchoModPlayer>().EnhanceSanchoLance();
 			return false; // Return false so it does not attack when we do this?
 		}
 
@@ -62,12 +62,11 @@ namespace SanchoLanceMod.Content.Weapons
 			
 			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
 			string hardblood = modplayer.hardblood.ToString();
-			string hardbloodMax = SanchoModPlayer.HARDBLOOD_MAX.ToString();
+			string hardbloodMax = SanchoModPlayer.HardbloodMax.ToString();
 
 			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));
 			//currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardblood?
 			tooltips.Add(currentHardblood);
-            base.ModifyTooltips(tooltips);
         }
 
         // Weapon should be unlocked by post-Plantera eclipse

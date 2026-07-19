@@ -12,10 +12,11 @@ using SanchoLanceMod.Common;
 using Humanizer;
 using System.Numerics;
 using ReLogic.Content.Sources;
+using SanchoLanceMod.Common.Players;
 
 using Vector2 = Microsoft.Xna.Framework.Vector2;
 
-namespace SanchoLanceMod.Common
+namespace SanchoLanceMod.Common.UI
 {
 	/// <summary>
     /// UIElement to display a hardblood resource bar when La Sangre is being held
@@ -39,7 +40,7 @@ namespace SanchoLanceMod.Common
 			area.Width.Set(40, 0f); 
 			area.Height.Set(20, 0f);
 
-			barFrame = new UIImage(ModContent.Request<Texture2D>("SanchoLanceMod/Common/temphardbloodbar")); // Frame of our resource bar
+			barFrame = new UIImage(ModContent.Request<Texture2D>("SanchoLanceMod/Common/UI/temphardbloodbar")); // Frame of our resource bar
 			barFrame.Left.Set(22, 0f);
 			barFrame.Top.Set(0, 0f);
 			barFrame.Width.Set(36, 0f);
@@ -70,7 +71,7 @@ namespace SanchoLanceMod.Common
 
 			var modPlayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
 			// Calculate quotient
-			float quotient = (float)modPlayer.hardblood / SanchoModPlayer.HARDBLOOD_MAX; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
+			float quotient = (float)modPlayer.hardblood / SanchoModPlayer.HardbloodMax; // Creating a quotient that represents the difference of your currentResource vs your maximumResource, resulting in a float of 0-1f.
 			quotient = Utils.Clamp(quotient, 0f, 1f); // Clamping it to 0-1f so it doesn't go over that.
 
 			// Here we get the screen dimensions of the barFrame element, then tweak the resulting rectangle to arrive at a rectangle within the barFrame texture that we will draw the gradient. These values were measured in a drawing program.

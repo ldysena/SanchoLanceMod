@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SanchoLanceMod.Common;
+using SanchoLanceMod.Common.Players;
 using Terraria;
 using Terraria.Enums;
 using Terraria.ModLoader;
@@ -49,12 +49,11 @@ namespace SanchoLanceMod.Content.Weapons
 			
 			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
 			string hardblood = modplayer.hardblood.ToString();
-			string hardbloodMax = SanchoModPlayer.HARDBLOOD_MAX.ToString();
+			string hardbloodMax = SanchoModPlayer.HardbloodMax.ToString();
 
 			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));
 			//currentHardblood.OverrideColor = null; // TODO: Use this to create a dynamic color based on hardblood?
 			tooltips.Add(currentHardblood);
-            base.ModifyTooltips(tooltips);
         }
 
 	}
