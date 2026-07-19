@@ -13,7 +13,7 @@ namespace SanchoLanceMod.Common.Players
 	public class SanchoModPlayer : ModPlayer
 	{
         public static readonly int HardbloodMax = 15000; // Maximum Hardblood and the amount required to enhance SanchoLance
-        public static readonly int MaxEnhanceDuration = 7; // Approximate duration of enhanced SanchoLance (in seconds)
+        public static readonly int MaxEnhanceDuration = 10; // Approximate duration of enhanced SanchoLance (in seconds)
 		public static readonly int DecrementPerTick = HardbloodMax / (MaxEnhanceDuration * 60); // We use Hardblood as a timer to track the duration of the enhanced state
 
 		public int hardblood = 0; // Resource for SanchoLance, measured in damage dealt (externally called "Bloodfeast")
