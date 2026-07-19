@@ -1,10 +1,19 @@
-## Download it from [Steam Workshop](TODO: update with generated steam workshop link)
+Check it out on the [Steam Workshop](todo: link)
+---
 
-This Terraria mod recreates the Manager of La Manchaland Don Quixote's weapon from Limbus Company. La Sangre can be obtained by [TODO: create obtaining condition]. It is a jousting lance that gains a resource called Hardblood by dealing melee damage with any weapon. At maximum Hardblood, right click to temporarily enhance La Sangre into "Ascendant La Sangre".
+This mod recreates the Manager of La Manchaland Don Quixote's weapon from Limbus Company. 
 
-Future goals
-- [TODO: write us]
+![TODO: showcase GIF](https://media1.tenor.com/m/DixmRnAevYQAAAAd/don-quixote-limbus-company.gif)
 
-Code and pixel art by wolf_71.
+Craft it with a Broken Hero's Sword and Bloody Tear at a Mythril Anvil. When the weapon is in your inventory, all melee damage is converted into "Bloodfeast," which can be spent to greatly enhance the weapon...
 
-SFX are not created by me and will be removed upon request.
+This mod is a work in progress. Upcoming features include:
+
+- Configurable Bloodfeast resource bar
+- Special animation when enhancing weapon
+- Weapon VFX
+
+---
+SFX are from Limbus Company and will be removed upon request.
+
+Developed by wolf_71
