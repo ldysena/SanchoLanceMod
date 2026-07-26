@@ -1,4 +1,4 @@
-Check it out on the [tModLoader Steam Workshop](todo: link)
+Check it out on the [tModLoader Steam Workshop](https://steamcommunity.com/sharedfiles/filedetails/?id=3772328837)
 ---
 
 This mod recreates the Manager of La Manchaland Don Quixote's weapon from Limbus Company in Terraria. 
