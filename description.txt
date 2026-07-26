@@ -1,7 +1,12 @@
-This mod recreates the Manager of La Manchaland Don Quixote's weapon from Limbus Company. 
+This mod recreates the Manager of La Manchaland Don Quixote's weapon from Limbus Company in Terraria. 
 
-Craft it with a Broken Hero's Sword and Bloody Tear at a Mythril Anvil. When the weapon is in your inventory, all melee damage is converted into "Bloodfeast," which can be spent to greatly enhance the weapon...
+Craft "La Sangre" with a Broken Hero's Sword and Bloody Tear at a Mythril Anvil. When it is in your inventory, all melee damage is converted into "Bloodfeast," which can be spent to greatly enhance the weapon...
  
+This mod is a work in progress. Upcoming features include:
+- Configurable Bloodfeast resource bar
+- Animation for enhancing La Sangre
+- Improved VFX
+
 SFX are from Limbus Company and will be removed upon request.
 
 Developed by wolf_71
