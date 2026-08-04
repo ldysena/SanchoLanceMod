@@ -16,22 +16,21 @@ namespace SanchoLanceMod.Content.Weapons
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MaxEnhanceDuration);
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
+        public SoundStyle useSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
+
 		// Sets up dynamic tooltip modification for displaying hardblood info
-        public override void SetStaticDefaults()
-        {
-           	CurrentHardbloodText = this.GetLocalization("CurrentHardblood");
-        }
+        public override void SetStaticDefaults() { CurrentHardbloodText = this.GetLocalization("CurrentHardblood"); }
 
 		public override void SetDefaults()
 		{
 			Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1f, 18);
-
-			Item.DamageType = DamageClass.MeleeNoSpeed; 
-			Item.SetWeaponValues(110, 15f, 0);
-			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); 
+            Item.SetWeaponValues(110, 15f, 0);
 			Item.channel = true;
-            Item.UseSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
+            Item.UseSound = useSFX;
 			Item.StopAnimationOnHurt = true;
+
+            Item.DamageType = DamageClass.MeleeNoSpeed; 
+			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); 
 		}
 		
 		// Transforms weapon according to isEnhanced state in SanchoModPlayer
@@ -46,14 +45,35 @@ namespace SanchoLanceMod.Content.Weapons
 				Item.Prefix(prefix);
 			}
 		}
+		
+		public override bool AltFunctionUse(Player player) { return true; }
 
-		// On right click, tell SanchoModPlayer to check if we can enhance the lance
-		public override bool AltFunctionUse(Player player)
-		{
-			// TODO: Implement "flair" swing on successful enhance
-			player.GetModPlayer<SanchoModPlayer>().EnhanceSanchoLance();
-			return false; // Return false so it does not attack when we do this?
-		}
+        public override bool CanUseItem(Player player)
+        {
+            if (player.altFunctionUse == 2)
+            {
+                // On right click, tell SanchoModPlayer to check if we can enhance the lance
+                if (!player.GetModPlayer<SanchoModPlayer>().EnhanceSanchoLance()) { return false; }
+
+                // TODO: Set transform swing values
+                Item.DefaultToSpear(ModContent.ProjectileType<SanchoTransformProjectile>(), 1f, 18);
+                Item.SetWeaponValues(110, 15f, 0);
+                Item.channel = false;
+                Item.UseSound = null; // SFX handled by SanchoModPlayer
+			    Item.StopAnimationOnHurt = false;
+            }  
+            else
+            {
+                // TODO: clean up unnecessary variable sets???
+                Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1f, 18);
+                Item.SetWeaponValues(110, 15f, 0);
+                Item.channel = true;
+                Item.UseSound = useSFX;
+			    Item.StopAnimationOnHurt = true;
+            }
+
+            return base.CanUseItem(player);
+        }
 
 		// Updates tooltip with current Hardblood
         public override void ModifyTooltips(List<TooltipLine> tooltips)

@@ -2,6 +2,7 @@
   "rootNamespace": "SanchoLanceMod",
   "fileMap": {
     "Common/SanchoModPlayer.cs": "SanchoLanceMod.Common",
-    "Common/SanchoHardbloodBar.cs": "SanchoLanceMod.Common"
+    "Common/SanchoHardbloodBar.cs": "SanchoLanceMod.Common",
+    "Content/Projectiles/SanchoTransformProjectile.cs": "SanchoLanceMod.Content.Projectiles"
   }
 }

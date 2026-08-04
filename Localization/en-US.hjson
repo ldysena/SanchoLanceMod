@@ -24,6 +24,7 @@ Mods: {
 		Projectiles: {
 			SanchoLanceProjectile.DisplayName: La Sangre
 			SanchoLanceEnhancedProjectile.DisplayName: Ascendant La Sangre
+			SanchoTransformProjectile.DisplayName: La Sangre Transformation
 		}
 	}
 }

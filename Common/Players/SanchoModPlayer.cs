@@ -27,15 +27,18 @@ namespace SanchoLanceMod.Common.Players
 		/// <summary>
 		/// Helper method to enhance La Sangre if Hardblood is full
 		/// </summary>
-		public void EnhanceSanchoLance()
+		public bool EnhanceSanchoLance()
 		{
 			if(readyToEnhance) 
 			{ 
 				isEnhanced = true; 
 				readyToEnhance = false;
 				SoundEngine.PlaySound(enhanceBeginSFX);
+                return true;
 			}
+            
             // TODO: SFX for right clicking when NOT ready?
+            return false;
 		}
 
 		/// <summary>
