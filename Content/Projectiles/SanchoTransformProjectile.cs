@@ -7,6 +7,7 @@ using Terraria.ID;
 using Terraria.DataStructures;
 using Microsoft.Xna.Framework.Graphics;
 using System.IO;
+using SanchoLanceMod.Common.Players;
 
 namespace SanchoLanceMod.Content.Projectiles
 {
@@ -20,8 +21,8 @@ namespace SanchoLanceMod.Content.Projectiles
 		// Not that we use multipliers here since that simplifies the amount of tweaks for these interactions
 		// You could change the values or even replace them entirely, but they are tweaked with looks in mind
 
-		//private const float SWINGRANGE = 1.15f * (float)Math.PI; // The angle a swing attack covers (300 deg)
-        private const float SWINGRANGE = (float)Math.PI; // The angle a swing attack covers (300 deg)
+		private const float SWINGRANGE = 1.05f * (float)Math.PI; // The angle a swing attack covers (300 deg)
+        //private const float SWINGRANGE = (float)Math.PI; // The angle a swing attack covers (300 deg)
 		private const float FIRSTHALFSWING = 0.45f; // How much of the swing happens before it reaches the target angle (in relation to swingRange)
 		private const float SPINRANGE = 3.5f * (float)Math.PI; // The angle a spin attack covers (630 degrees)
 		private const float WINDUP = 0.15f; // How far back the player's hand goes when winding their attack (in relation to swingRange)
@@ -66,7 +67,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		private float transTime => 60f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 		private float execTime => 9f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 		private float hideTime => 6f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
-        private float poseTime => 50f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+        private float poseTime => 40f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 
         private int currentFrame = 0; // For animating the spritesheet
         private const float numFrames = 17;
@@ -268,6 +269,7 @@ namespace SanchoLanceMod.Content.Projectiles
 				if (Timer >= execTime) 
                 {
 					CurrentStage = AttackStage.Unwind;
+                    Owner.direction *= -1;
                     
 				}
 			}
@@ -295,6 +297,7 @@ namespace SanchoLanceMod.Content.Projectiles
 				if (Timer >= hideTime) 
                 {
 					CurrentStage = AttackStage.Pose;
+                    //Owner.GetModPlayer<SanchoModPlayer>().isPosed = true;
 				}
 			}
 			else {
@@ -313,6 +316,7 @@ namespace SanchoLanceMod.Content.Projectiles
             if (Timer >= poseTime) 
             {
 				Projectile.Kill();
+                //Owner.GetModPlayer<SanchoModPlayer>().isPosed = false;
 			}
         }
     }

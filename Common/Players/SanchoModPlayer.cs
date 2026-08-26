@@ -1,4 +1,5 @@
 using System;
+using Microsoft.Xna.Framework;
 using SanchoLanceMod.Content.Weapons;
 using Terraria;
 using Terraria.Audio;
@@ -19,6 +20,7 @@ namespace SanchoLanceMod.Common.Players
 		public int hardblood = 0; // Resource for SanchoLance, measured in damage dealt (externally called "Bloodfeast")
 		public bool readyToEnhance = false; // Flag to check when Hardblood is full
 		public bool isEnhanced = false; // Flag to check if SanchoLance is currently enhanced
+        //public bool isPosed = false;
 
 		//public SoundStyle enhanceBeginSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhancesound") with { Volume = 0.7f };
 		public SoundStyle enhanceEndSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceend") with { Volume = 0.7f };
@@ -64,6 +66,9 @@ namespace SanchoLanceMod.Common.Players
 					SoundEngine.PlaySound(enhanceEndSFX);
 				}
 			}
+
+            // Use jumping animation to simulate pose
+            //if (isPosed) { Player.legFrame.Y = 6 * Player.legFrame.Height; }
         }
 
 		// Resets all Hardblood tracking variables on player death
