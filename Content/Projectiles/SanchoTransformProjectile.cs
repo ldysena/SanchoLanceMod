@@ -64,20 +64,21 @@ namespace SanchoLanceMod.Content.Projectiles
 
 		// We define timing functions for each stage, taking into account melee attack speed
 		// Note that you can change this to suit the need of your projectile
-		private float transTime => 60f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+		private float transTime => 57f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 		private float execTime => 9f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
-		private float hideTime => 6f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
-        private float poseTime => 40f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+		private float hideTime => 3f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+        private float poseTime => 60f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 
         private int currentFrame = 0; // For animating the spritesheet
-        private const float numFrames = 17;
+        private float transformProgress = 0;
+        private const int numFrames = 17;
 
         //public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceEnhancedProjectile";
 		public override string Texture => "SanchoLanceMod/Content/Projectiles/transform_projectile"; // Use texture of item as projectile texture
 		private Player Owner => Main.player[Projectile.owner];
 
-        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 0.7f };
-        public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 0.7f };
+        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 1.0f };
+        public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 1.0f };
 
 		public override void SetStaticDefaults() {
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
@@ -250,7 +251,16 @@ namespace SanchoLanceMod.Content.Projectiles
 			Size = MathHelper.SmoothStep(0, 1, Timer / transTime); // Make sword slowly increase in size as we prepare to strike until it reaches max
 
             // TODO: Write code animating transformation
-            if (Timer % 3 == 0 && currentFrame < numFrames) { currentFrame++; }
+            if (Timer > 15 && currentFrame < numFrames) 
+            { 
+                transformProgress += 0.7f; // Roughly 33 FPS
+                currentFrame = (int)transformProgress; 
+
+                /*if (currentFrame > numFrames)
+                {
+                    currentFrame = numFrames;
+                }   */
+            }
 
 			if (Timer >= transTime) 
             {
