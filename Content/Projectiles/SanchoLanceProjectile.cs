@@ -6,6 +6,8 @@ using Terraria.GameContent;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Terraria.Audio;
+using rail;
+using SanchoLanceMod.Common.Players;
 
 namespace SanchoLanceMod.Content.Projectiles
 {
@@ -100,7 +102,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			}
 
 			// The Hallowed and Shadow Jousting Lance spawn dusts when the player is moving above a certain speed.
-			float minimumDustVelocity = 6f;
+			/*float minimumDustVelocity = 6f;
 
 			// This Vector2.Dot is the dot product between the projectile's velocity and the player's velocity normalized to be between -1 and 1.
 			// What this means in this context is that the speed value will be closer to positive 1 if the player is moving in the same direction as the direction the lance was shot.
@@ -138,7 +140,7 @@ namespace SanchoLanceMod.Content.Projectiles
 				if (Main.rand.NextBool(dustChance + 3)) {
 					Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustTypeRare, 0f, 0f, 150, default, 1.4f);
 				}
-			}
+			}*/
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
@@ -237,6 +239,18 @@ namespace SanchoLanceMod.Content.Projectiles
 			Main.EntitySpriteDraw(texture,
 				position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
 				sourceRectangle, drawColor, rotation, origin, Projectile.scale, spriteEffects, 0);
+
+            // Temp glowmask thingy?
+            if(Main.player[Projectile.owner].GetModPlayer<SanchoModPlayer>().readyToEnhance)
+            {
+                Texture2D glowtexture = ModContent.Request<Texture2D>("SanchoLanceMod/Content/Projectiles/temp_GLOW").Value;
+                Rectangle glowSource = glowtexture.Frame(1, Main.projFrames[Type], frameY: Projectile.frame);
+
+                Main.EntitySpriteDraw(glowtexture,
+				    position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
+				    glowSource, Color.White, rotation, origin, Projectile.scale, spriteEffects, 0);
+            }
+            
 
 			 //The following is for debugging the size of the collision rectangle. Set this to the same size as the one you have in Colliding().
 			 //Rectangle lanceHitboxBounds = new Rectangle(0, 0, 300, 300);

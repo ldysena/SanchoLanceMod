@@ -102,7 +102,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			}
 
 			// The Hallowed and Shadow Jousting Lance spawn dusts when the player is moving above a certain speed.
-			float minimumDustVelocity = 6f;
+			/*float minimumDustVelocity = 6f;
 
 			// This Vector2.Dot is the dot product between the projectile's velocity and the player's velocity normalized to be between -1 and 1.
 			// What this means in this context is that the speed value will be closer to positive 1 if the player is moving in the same direction as the direction the lance was shot.
@@ -140,7 +140,7 @@ namespace SanchoLanceMod.Content.Projectiles
 				if (Main.rand.NextBool(dustChance + 3)) {
 					Dust.NewDust(Projectile.Center - new Vector2(offset, offset), offset * 2, offset * 2, dustTypeRare, 0f, 0f, 150, default, 1.4f);
 				}
-			}
+			}*/
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers)
