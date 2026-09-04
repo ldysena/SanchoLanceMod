@@ -64,9 +64,9 @@ namespace SanchoLanceMod.Content.Projectiles
 
 		// We define timing functions for each stage, taking into account melee attack speed
 		// Note that you can change this to suit the need of your projectile
-		private float transTime => 57f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
-		private float execTime => 9f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
-		private float hideTime => 3f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+		private float transTime => 65f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+		private float execTime => 10f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
+		private float hideTime => 4f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
         private float poseTime => 60f / Owner.GetTotalAttackSpeed(Projectile.DamageType);
 
         private int currentFrame = 0; // For animating the spritesheet
@@ -77,8 +77,8 @@ namespace SanchoLanceMod.Content.Projectiles
 		public override string Texture => "SanchoLanceMod/Content/Projectiles/transform_projectile"; // Use texture of item as projectile texture
 		private Player Owner => Main.player[Projectile.owner];
 
-        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 1.0f };
-        public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 1.0f };
+        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 0.7f };
+        public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 0.5f };
 
 		public override void SetStaticDefaults() {
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
@@ -214,11 +214,9 @@ namespace SanchoLanceMod.Content.Projectiles
 			Utils.PlotTileLine(start, end, 15 * Projectile.scale, DelegateMethods.CutTiles);
 		}
 
-		// We make it so that the projectile can only do damage in its release and unwind phases
-		public override bool? CanDamage() {
-			if (CurrentStage == AttackStage.Transform)
-				return false;
-			return base.CanDamage();
+		public override bool? CanDamage()
+        {
+			return false; // Avoid multiplayer sync issues by not dealing damage :)
 		}
 
 		public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
