@@ -240,7 +240,7 @@ namespace SanchoLanceMod.Content.Projectiles
 				position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
 				sourceRectangle, drawColor, rotation, origin, Projectile.scale, spriteEffects, 0);
 
-            // Temp glowmask thingy?
+            /*// Temp glowmask thingy?
             if(Main.player[Projectile.owner].GetModPlayer<SanchoModPlayer>().readyToEnhance)
             {
                 Texture2D glowtexture = ModContent.Request<Texture2D>("SanchoLanceMod/Content/Projectiles/temp_GLOW").Value;
@@ -249,7 +249,7 @@ namespace SanchoLanceMod.Content.Projectiles
                 Main.EntitySpriteDraw(glowtexture,
 				    position - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY),
 				    glowSource, Color.White, rotation, origin, Projectile.scale, spriteEffects, 0);
-            }
+            }*/
             
 
 			 //The following is for debugging the size of the collision rectangle. Set this to the same size as the one you have in Colliding().

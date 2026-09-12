@@ -72,9 +72,9 @@ namespace SanchoLanceMod.Content.Projectiles
         private int currentFrame = 0; // For animating the spritesheet
         private float transformProgress = 0;
         private const int numFrames = 18;
-		//public override string Texture => "SanchoLanceMod/Content/Projectiles/transform_projectile"; // Use texture of item as projectile texture
-        public override string Texture => "SanchoLanceMod/Content/Projectiles/tempbase";
-        public override string GlowTexture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile_GLOW";
+		public override string Texture => "SanchoLanceMod/Content/Projectiles/transform_projectile"; // Use texture of item as projectile texture
+        //public override string Texture => "SanchoLanceMod/Content/Projectiles/tempbase";
+        //public override string GlowTexture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile_GLOW";
         //public static string UpgradeTexture = "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile_ENHANCED";
 		private Player Owner => Main.player[Projectile.owner];
 
@@ -193,10 +193,10 @@ namespace SanchoLanceMod.Content.Projectiles
 			}
             // Base
 			Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-            //Rectangle sourceRectangle = texture.Frame(numFrames, 1, currentFrame, 0);
-			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, default, lightColor * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
+            Rectangle sourceRectangle = texture.Frame(numFrames, 1, currentFrame, 0);
+			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, sourceRectangle, lightColor * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
 
-            // Glow
+            /*// Glow
             Texture2D glowTexture = ModContent.Request<Texture2D>(GlowTexture).Value;
             Main.spriteBatch.Draw(glowTexture, Projectile.Center - Main.screenPosition, default, Color.White * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
 
@@ -204,7 +204,7 @@ namespace SanchoLanceMod.Content.Projectiles
             Texture2D enhanceTexture = ModContent.Request<Texture2D>("SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile_ENHANCED").Value;
             Rectangle sourceRectangle = enhanceTexture.Frame(numFrames, 1, currentFrame, 0);
             Main.spriteBatch.Draw(enhanceTexture, Projectile.Center - Main.screenPosition, sourceRectangle, lightColor * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
-
+            */
 			// Since we are doing a custom draw, prevent it from normally drawing
 			return false;
 		}
