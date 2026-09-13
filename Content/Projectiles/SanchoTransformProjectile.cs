@@ -102,10 +102,10 @@ namespace SanchoLanceMod.Content.Projectiles
 
 		public override void OnSpawn(IEntitySource source) 
         {
-			Projectile.spriteDirection = Main.MouseWorld.X > Owner.MountedCenter.X ? 1 : -1; // Sets direction based on mouse... do we want it set based on player direction???
+			//Projectile.spriteDirection = Main.MouseWorld.X > Owner.MountedCenter.X ? 1 : -1; // Sets direction based on mouse... do we want it set based on player direction???
 			//InitialAngle = (float)(-Math.PI / 2 - Math.PI * 1 / 3 * Projectile.spriteDirection); // Starting angle is designated based on direction of hit
-            //InitialAngle = (float)(Math.PI / 2 + Math.PI / 6 * Projectile.spriteDirection);
-            InitialAngle = (float)(Math.PI / 2 - Math.PI * 2 / 5 * Projectile.spriteDirection);
+            //InitialAngle = (float)(Math.PI / 2 - Math.PI * 2 / 5 * Projectile.spriteDirection);
+            InitialAngle = (float)Math.Atan2(Main.MouseWorld.Y - Owner.Center.Y, Main.MouseWorld.X - Owner.Center.X);
 
             SoundEngine.PlaySound(transformSFX);
 		}
@@ -273,8 +273,9 @@ namespace SanchoLanceMod.Content.Projectiles
 			if (Timer >= transTime) 
             {
 				//SoundEngine.PlaySound(SoundID.Item1); // Play sword sound here since playing it on spawn is too early
-				CurrentStage = AttackStage.Execute; // If attack is over prep time, we go to next stage
-                SoundEngine.PlaySound(reverbSFX);
+                Projectile.Kill();
+				//CurrentStage = AttackStage.Execute; // If attack is over prep time, we go to next stage
+                //SoundEngine.PlaySound(reverbSFX);
 			}
 		}
 
