@@ -56,7 +56,7 @@ namespace SanchoLanceMod.Content.Weapons
                 if (!player.GetModPlayer<SanchoModPlayer>().EnhanceSanchoLance()) { return false; }
 
                 // TODO: Set transform swing values
-                Item.DefaultToSpear(ModContent.ProjectileType<SanchoTransformProjectile>(), 1f, 18);
+                Item.DefaultToSpear(ModContent.ProjectileType<SanchoTransformingProjectile>(), 1f, 18);
                 Item.SetWeaponValues(110, 15f, 0);
                 Item.channel = false;
                 Item.UseSound = null; // SFX handled by SanchoModPlayer

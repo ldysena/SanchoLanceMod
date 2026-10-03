@@ -11,12 +11,12 @@ using Terraria.Audio;
 namespace SanchoLanceMod.Content.Projectiles
 {
     // Code modified from tModLoader's ExampleMod
-	public class SanchoLanceEnhancedProjectile : ModProjectile
+	public class SanchoEnhancedProjectile : ModProjectile
 	{
         public static readonly float LifestealPercent = 0.05f;
         public static readonly float MinHitSoundVelocity = 6f;
 
-        public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
+        public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";
 
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sancholance-hit_", 2) with 
         { 

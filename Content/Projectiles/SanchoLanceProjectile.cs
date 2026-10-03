@@ -17,7 +17,7 @@ namespace SanchoLanceMod.Content.Projectiles
         public static readonly float LifestealPercent = 0.025f;
         public static readonly float MinHitsoundVelocity =  6f;
 
-        public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
+        //public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";
 
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smallhit_", 2) with 
         { 

@@ -11,7 +11,7 @@ using SanchoLanceMod.Common.Players;
 
 namespace SanchoLanceMod.Content.Projectiles
 {
-	public class SanchoTransformProjectile : ModProjectile
+	public class SanchoTransformingProjectile : ModProjectile
 	{
 		private const float SWINGRANGE = 1.05f * (float)Math.PI; // The angle a swing attack covers (300 deg)
 		private const float UNWIND = 0.4f; // When should the sword start disappearing
@@ -43,7 +43,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		private float slowTime => 4f;
         private float poseTime => 60f;
 
-		public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
+		public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";
 
 		private Player Owner => Main.player[Projectile.owner];
 
