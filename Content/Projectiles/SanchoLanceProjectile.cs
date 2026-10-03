@@ -17,6 +17,8 @@ namespace SanchoLanceMod.Content.Projectiles
         public static readonly float LifestealPercent = 0.025f;
         public static readonly float MinHitsoundVelocity =  6f;
 
+        public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
+
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/smallhit_", 2) with 
         { 
             Volume = 0.4f,
@@ -28,6 +30,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		{
 			ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;
 			ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+            Main.projFrames[Type] = 10;
 		}
 
 		public override void SetDefaults()
@@ -35,8 +38,8 @@ namespace SanchoLanceMod.Content.Projectiles
 			Projectile.netImportant = true;
 
 			// The width and height do not affect the collision of the Jousting Lance because we calculate that separately (see Colliding() below)
-			Projectile.width = 128;
-			Projectile.height = 128;
+			Projectile.width = 150;
+			Projectile.height = 150;
 
 			// Since we are using custom AI below, we set the aiStyle to -1.
 			Projectile.aiStyle = -1;
@@ -53,6 +56,8 @@ namespace SanchoLanceMod.Content.Projectiles
             // We use static immunity to set hit rate since a player will only have one of the projectile
             //Projectile.usesIDStaticNPCImmunity = true;
             // Projectile.idStaticNPCHitCooldown = 5;
+
+            Projectile.frame = 0; // Set to first frame of spritesheet
 		}
 
 		// This is the behavior of the Jousting Lances.
@@ -217,7 +222,8 @@ namespace SanchoLanceMod.Content.Projectiles
 			Rectangle sourceRectangle = texture.Frame(1, Main.projFrames[Type], frameY: Projectile.frame);
 
 			// The origin in this case is (0, 0) of our projectile because Projectile.Center is the tip of our Jousting Lance.
-			Vector2 origin = Vector2.Zero;
+            int tipOffset = 22; // Adjust for the empty part of the spritesheet
+			Vector2 origin = new Vector2(tipOffset, tipOffset); 
 
 			// The rotation of the projectile.
 			float rotation = Projectile.rotation;
@@ -226,7 +232,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			// This will make it so the bottom of the sprite is correctly facing down when shot to the right.
 			if (Projectile.direction > 0) {
 				rotation -= (float)Math.PI / 2f;
-				origin.X += sourceRectangle.Width;
+				origin.X = sourceRectangle.Width - tipOffset;
 				spriteEffects = SpriteEffects.FlipHorizontally;
 			}
 

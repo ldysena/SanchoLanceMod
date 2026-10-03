@@ -16,6 +16,8 @@ namespace SanchoLanceMod.Content.Projectiles
         public static readonly float LifestealPercent = 0.05f;
         public static readonly float MinHitSoundVelocity = 6f;
 
+        public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
+
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sancholance-hit_", 2) with 
         { 
             Volume = 0.4f,
@@ -27,6 +29,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		{
 			ProjectileID.Sets.DismountsPlayersOnHit[Type] = true;
 			ProjectileID.Sets.NoMeleeSpeedVelocityScaling[Type] = true;
+            Main.projFrames[Type] = 10;
 		}
 
 		public override void SetDefaults()
@@ -52,6 +55,8 @@ namespace SanchoLanceMod.Content.Projectiles
             // We use static immunity to set hit rate since a player will only have one of the projectile
             Projectile.usesIDStaticNPCImmunity = true;
             Projectile.idStaticNPCHitCooldown = 5;
+
+            Projectile.frame = 9; // Set to final frame of spritesheet
 		}
 
 		// This is the behavior of the Jousting Lances.

@@ -43,12 +43,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		private float slowTime => 4f;
         private float poseTime => 60f;
 
-        // Variables for animating via spritesheet
-        private int currentFrame = 0; 
-        private float transformProgress = 0;
-        private const int numFrames = 18;
-
-		public override string Texture => "SanchoLanceMod/Content/Projectiles/transform_projectile";
+		public override string Texture => "SanchoLanceMod/Content/Projectiles/FINALUSEME";
 
 		private Player Owner => Main.player[Projectile.owner];
 
@@ -58,6 +53,7 @@ namespace SanchoLanceMod.Content.Projectiles
 		public override void SetStaticDefaults() 
         {
 			ProjectileID.Sets.HeldProjDoesNotUsePlayerGfxOffY[Type] = true;
+            Main.projFrames[Type] = 10;
 		}
 
 		public override void SetDefaults() 
@@ -150,7 +146,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			}
 
 			Texture2D texture = ModContent.Request<Texture2D>(Texture).Value;
-            Rectangle sourceRectangle = texture.Frame(numFrames, 1, currentFrame, 0);
+            Rectangle sourceRectangle = texture.Frame(1, Main.projFrames[Type], 0, Projectile.frame);
 			Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, sourceRectangle, lightColor * Projectile.Opacity, Projectile.rotation + rotationOffset, origin, Projectile.scale, effects, 0);
 
 			// Since we are doing a custom draw, prevent it from normally drawing
@@ -198,14 +194,17 @@ namespace SanchoLanceMod.Content.Projectiles
 		}
 
 		// Function facilitating the taking out of the sword
-		private void TransformWeapon() {
-			//Progress = WINDUP * SWINGRANGE * (1f - Timer / prepTime); // Calculates rotation from initial angle
+		private void TransformWeapon() 
+        {
 			Size = MathHelper.SmoothStep(0, 1, Timer / transTime); // Make sword slowly increase in size as we prepare to strike until it reaches max
 
-            if (Timer > 15 && currentFrame < numFrames - 1) 
+            if (Timer > 15 && Projectile.frame < Main.projFrames[Type] - 1) 
             { 
-                transformProgress += 0.7f; // Roughly 33 FPS
-                currentFrame = (int)transformProgress; 
+                if (++Projectile.frameCounter >= 3) // Roughly 20 fps
+                {
+                    Projectile.frameCounter = 0;
+                    Projectile.frame++;
+                }
             }
 
 			if (Timer >= transTime) 
