@@ -48,7 +48,7 @@ namespace SanchoLanceMod.Content.Weapons
 			SanchoModPlayer modplayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
 			
 			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
-			string hardblood = modplayer.hardblood.ToString();
+			string hardblood = ((int)modplayer.hardblood).ToString();// Cast to int only here b/c use as a timer is the only floating point OP
 			string hardbloodMax = SanchoModPlayer.HardbloodMax.ToString();
 
 			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));

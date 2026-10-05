@@ -8,12 +8,13 @@ using Terraria.Localization;
 using Terraria.Audio;
 using System.Buffers.Text;
 using Terraria.ID;
+using System;
 
 namespace SanchoLanceMod.Content.Weapons
 {
 	public class SanchoLance : ModItem
 	{
-		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs(SanchoModPlayer.MaxEnhanceDuration);
+		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(SanchoModPlayer.MaxEnhanceDuration / 60f)); // TODO: hardcode this or adjust for frames -> seconds conversion
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
         public SoundStyle useSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
@@ -81,7 +82,7 @@ namespace SanchoLanceMod.Content.Weapons
 			SanchoModPlayer modplayer = Main.LocalPlayer.GetModPlayer<SanchoModPlayer>();
 			
 			string hardbloodPercent = modplayer.HardbloodPercent().ToString();
-			string hardblood = modplayer.hardblood.ToString();
+			string hardblood = modplayer.hardblood.ToString(); 
 			string hardbloodMax = SanchoModPlayer.HardbloodMax.ToString();
 
 			TooltipLine currentHardblood = new TooltipLine(Mod, "CurrentHardblood%", CurrentHardbloodText.Format(hardbloodPercent, hardblood, hardbloodMax));

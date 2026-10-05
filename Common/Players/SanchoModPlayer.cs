@@ -13,11 +13,11 @@ namespace SanchoLanceMod.Common.Players
 	/// </summary>
 	public class SanchoModPlayer : ModPlayer
 	{
-        public static readonly int HardbloodMax = 15000; // Maximum Hardblood and the amount required to enhance SanchoLance
-        public static readonly int MaxEnhanceDuration = 10; // Approximate duration of enhanced SanchoLance (in seconds)
-		public static readonly int DecrementPerTick = HardbloodMax / (MaxEnhanceDuration * 60); // We use Hardblood as a timer to track the duration of the enhanced state
+        public static readonly float HardbloodMax = 15000f; // Maximum Hardblood and the amount required to enhance SanchoLance
+        public static readonly float MaxEnhanceDuration = 665f; // Duration of enhanced SanchoLance (in frames)
+		public static readonly float DecrementPerTick = HardbloodMax / MaxEnhanceDuration; // We use Hardblood as a timer to track the duration of the enhanced state
 
-		public int hardblood = 0; // Resource for SanchoLance, measured in damage dealt (externally called "Bloodfeast")
+		public float hardblood = 0f; // Resource for SanchoLance, measured in damage dealt (externally called "Bloodfeast")
 		public bool readyToEnhance = false; // Flag to check when Hardblood is full
 		public bool isEnhanced = false; // Flag to check if SanchoLance is currently enhanced
         //public bool isPosed = false;
@@ -51,7 +51,7 @@ namespace SanchoLanceMod.Common.Players
 		/// <returns>Percent of max Hardblood currently held as an integer</returns>
 		public int HardbloodPercent()
 		{
-			return 100 * hardblood / HardbloodMax;
+			return (int)(100 * hardblood / HardbloodMax);
 		}
 
         public override void PostUpdate()
@@ -61,7 +61,7 @@ namespace SanchoLanceMod.Common.Players
 				hardblood -= DecrementPerTick; // Calculated from static readonly values at top of file
 				if (hardblood < 0) 
 				{ 
-					hardblood = 0; 
+					hardblood = 0f; 
 					isEnhanced = false;
 					SoundEngine.PlaySound(enhanceEndSFX);
 				}
@@ -74,7 +74,7 @@ namespace SanchoLanceMod.Common.Players
 		// Resets all Hardblood tracking variables on player death
         public override void UpdateDead()
         {
-			hardblood = 0;
+			hardblood = 0f;
 			readyToEnhance = false;
 			isEnhanced = false;
         }
