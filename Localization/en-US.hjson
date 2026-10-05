@@ -2,12 +2,12 @@ Mods: {
 	SanchoLanceMod: {
 		Items: {
 			SanchoLance: {
-				DisplayName: La Sangre
+				DisplayName: La Sangre de Sancho
 				Tooltip:
 					'''
 					Deal melee damage to gain [c/c2003a:Bloodfeast]. Gain double 
-					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Bloodfeast], <right> 
-					to greatly enhance all stats for {0} seconds.
+					when using {$Mods.SanchoLanceMod.Items.SanchoLance.DisplayName}. At maximum [c/c2003a:Bloodfeast], 
+					<right> to greatly enhance all stats for {0} seconds.
 					Steals enemy life on hit.
 					Build momentumn to increase attack power.
 					'''
@@ -15,16 +15,16 @@ Mods: {
 			}
 
 			SanchoLanceEnhanced: {
-				DisplayName: Ascendant La Sangre
+				DisplayName: Ascendant Sancho Hardblood Art ~ La Sangre
 				Tooltip: "[c/fcd132:'...This lance shall end that festering, slothful dream!']"
 				CurrentHardblood: "[c/c2003a:BLOODFEAST: {0}% ({1} / {2})]"
 			}
 		}
 
 		Projectiles: {
-			SanchoLanceProjectile.DisplayName: La Sangre
-			SanchoEnhancedProjectile.DisplayName: Ascendant La Sangre
-			SanchoTransformingProjectile.DisplayName: La Sangre
+			SanchoLanceProjectile.DisplayName: Hardblood Lance
+			SanchoEnhancedProjectile.DisplayName: Will to continue the Dream
+			SanchoTransformingProjectile.DisplayName: if you are reading this, I fucked up
 		}
 	}
 }
