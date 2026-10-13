@@ -77,7 +77,7 @@ namespace SanchoLanceMod.Content.Projectiles
 
 			// If the Jousting Lance is no longer being used, kill the projectile.
 			// Also kill if isEnhanced La Sangre buff ends
-			if (owner.ItemAnimationEndingOrEnded || !owner.GetModPlayer<SanchoModPlayer>().isEnhanced) {
+			if (owner.ItemAnimationEndingOrEnded /*|| !owner.GetModPlayer<SanchoModPlayer>().isEnhanced*/) {
 				Projectile.Kill();
 				return;
 			}

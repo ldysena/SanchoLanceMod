@@ -1,5 +1,6 @@
 using System;
 using Microsoft.Xna.Framework;
+using SanchoLanceMod.Content.Projectiles;
 using SanchoLanceMod.Content.Weapons;
 using Terraria;
 using Terraria.Audio;
@@ -64,6 +65,15 @@ namespace SanchoLanceMod.Common.Players
 					hardblood = 0f; 
 					isEnhanced = false;
 					SoundEngine.PlaySound(enhanceEndSFX);
+                    foreach (Projectile projectile in Main.ActiveProjectiles)
+                    {
+                        if (projectile.type == ModContent.ProjectileType<SanchoEnhancedProjectile>()
+                            && projectile.owner == Main.myPlayer)
+                        {
+                            Player.TryCancelChannel(projectile);
+                            break;
+                        }
+                    }
 				}
 			}
 
