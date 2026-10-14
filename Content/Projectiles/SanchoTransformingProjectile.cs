@@ -47,8 +47,8 @@ namespace SanchoLanceMod.Content.Projectiles
 
 		private Player Owner => Main.player[Projectile.owner];
 
-        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 0.7f };
-        public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 0.5f };
+        public SoundStyle transformSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformswing") with { Volume = 0.3f };
+        //public SoundStyle reverbSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/transformreverb") with { Volume = 0.5f };
 
 		public override void SetStaticDefaults() 
         {

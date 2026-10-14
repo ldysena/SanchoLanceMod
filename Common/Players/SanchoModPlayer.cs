@@ -24,8 +24,8 @@ namespace SanchoLanceMod.Common.Players
         //public bool isPosed = false;
 
 		//public SoundStyle enhanceBeginSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhancesound") with { Volume = 0.7f };
-		public SoundStyle enhanceEndSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceend") with { Volume = 0.7f };
-		public SoundStyle enhanceReadySFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceready") with { Volume = 0.7f };
+		public SoundStyle enhanceEndSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceend") with { Volume = 0.3f };
+		public SoundStyle enhanceReadySFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/enhanceready") with { Volume = 0.3f };
 
 		/// <summary>
 		/// Helper method to enhance La Sangre if Hardblood is full

@@ -17,7 +17,7 @@ namespace SanchoLanceMod.Content.Weapons
 		public override LocalizedText Tooltip => base.Tooltip.WithFormatArgs((int)(SanchoModPlayer.MaxEnhanceDuration / 60f)); // TODO: hardcode this or adjust for frames -> seconds conversion
 		public static LocalizedText CurrentHardbloodText { get; private set; }
 
-        public SoundStyle useSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.4f };
+        public SoundStyle useSFX = new SoundStyle("SanchoLanceMod/Assets/Sounds/smalluse_", 2) with { Volume = 0.2f };
 
 		// Sets up dynamic tooltip modification for displaying hardblood info
         public override void SetStaticDefaults() { CurrentHardbloodText = this.GetLocalization("CurrentHardblood"); }

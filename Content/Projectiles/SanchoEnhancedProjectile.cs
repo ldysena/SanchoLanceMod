@@ -20,7 +20,7 @@ namespace SanchoLanceMod.Content.Projectiles
 
         public static SoundStyle hitSound = new SoundStyle("SanchoLanceMod/Assets/Sounds/sancholance-hit_", 2) with 
         { 
-            Volume = 0.4f,
+            Volume = 0.3f,
             MaxInstances = 2,
             SoundLimitBehavior = SoundLimitBehavior.ReplaceOldest 
         };
