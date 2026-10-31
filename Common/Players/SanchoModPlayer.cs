@@ -75,6 +75,7 @@ namespace SanchoLanceMod.Common.Players
                         }
                     }
 				}
+                //if(Main.time % 20 == 0) { Main.NewText("Lifesteal = " + Main.LocalPlayer.lifeSteal); }
 			}
 
             // Use jumping animation to simulate pose

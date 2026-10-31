@@ -25,10 +25,10 @@ namespace SanchoLanceMod.Content.Weapons
 		public override void SetDefaults()
 		{
 			Item.DefaultToSpear(ModContent.ProjectileType<SanchoLanceProjectile>(), 1f, 18);
-            Item.SetWeaponValues(110, 15f, 0);
+            Item.SetWeaponValues(110, 14f, 0);
 			Item.channel = true;
             Item.UseSound = useSFX;
-			Item.StopAnimationOnHurt = true;
+			Item.StopAnimationOnHurt = false;
 
             Item.DamageType = DamageClass.MeleeNoSpeed; 
 			Item.SetShopValues(ItemRarityColor.StrongRed10, Item.buyPrice(1, 6, 0, 5)); 
@@ -70,7 +70,7 @@ namespace SanchoLanceMod.Content.Weapons
                 Item.SetWeaponValues(110, 15f, 0);
                 Item.channel = true;
                 Item.UseSound = useSFX;
-			    Item.StopAnimationOnHurt = true;
+			    Item.StopAnimationOnHurt = false;
             }
 
             return base.CanUseItem(player);

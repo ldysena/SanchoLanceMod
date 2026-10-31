@@ -13,7 +13,8 @@ namespace SanchoLanceMod.Content.Projectiles
     // Code modified from tModLoader's ExampleMod
 	public class SanchoEnhancedProjectile : ModProjectile
 	{
-        public static readonly float LifestealPercent = 0.05f;
+        public static readonly float LifestealPercent = 0.05f; //  Actual percent of damage healed
+        public static readonly float LifestealMultiplier = 0.5f; // Multiplier effectively increasing lifesteal cap due to Player.lifesteal
         public static readonly float MinHitSoundVelocity = 6f;
 
         public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";
@@ -164,7 +165,7 @@ namespace SanchoLanceMod.Content.Projectiles
             {
                 int healAmount = (int)(damageDone * LifestealPercent);
                 owner.Heal(healAmount);
-                owner.lifeSteal -= Math.Min(healAmount, owner.statLifeMax - owner.statLife); // Since we deal a lot of damage, we cap lifesteal decrement by current missing HP
+                owner.lifeSteal -= LifestealMultiplier * Math.Min(healAmount, owner.statLifeMax - owner.statLife); // Since we deal a lot of damage, we cap lifesteal decrement by current missing HP
             }
 
             if(owner.velocity.Length() > MinHitSoundVelocity) // We check speed for hitSound b/c it is annoying
