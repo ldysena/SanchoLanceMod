@@ -68,7 +68,7 @@ namespace SanchoLanceMod.Content.Projectiles
 			Projectile.localNPCHitCooldown = -1; // We set this to -1 to make sure the projectile doesn't hit twice
 			Projectile.ownerHitCheck = true; // Make sure the owner of the projectile has line of sight to the target (aka can't hit things through tile).
 			Projectile.DamageType = DamageClass.MeleeNoSpeed; // Projectile is a melee projectile
-            Projectile.scale = 1.0f;
+            Projectile.scale = 1.1f;
 		}
 
 		public override void OnSpawn(IEntitySource source) 
@@ -127,20 +127,24 @@ namespace SanchoLanceMod.Content.Projectiles
 		public override bool PreDraw(ref Color lightColor) 
         {
 			// Calculate origin of sword (hilt) based on orientation and offset sword rotation (as sword is angled in its sprite)
-			int handleOffset = 44; // Used to move the handle so we hold it at the right position
+			float handleOffset = 44f; // Used to move the handle so we hold it at the right position
             Vector2 origin;
 			float rotationOffset;
 			SpriteEffects effects;
 
+            // Set manually b/c Projectile.scale messes up origin
+            float width = 150;
+            float height = 150;
+
 			if (Projectile.spriteDirection > 0) // Right
             { 
-                origin = new Vector2(handleOffset, Projectile.height - handleOffset);
+                origin = new Vector2(handleOffset, height - handleOffset);
                 rotationOffset = MathHelper.ToRadians(45f);
                 effects = SpriteEffects.FlipHorizontally;
 			}
 			else 
             { 
-                origin = new Vector2(Projectile.width - handleOffset, Projectile.height - handleOffset);
+                origin = new Vector2(width - handleOffset, height - handleOffset);
                 rotationOffset = MathHelper.ToRadians(135f);
                 effects = SpriteEffects.None;
 			}
