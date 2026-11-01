@@ -180,8 +180,8 @@ namespace SanchoLanceMod.Content.Projectiles
 		public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
 		{
 			float rotationFactor = Projectile.rotation + (float)Math.PI / 4f; // The rotation of the Jousting Lance.
-			float scaleFactor = 175f; // How far back the hit-line will be from the tip of the Jousting Lance. You will need to modify this if you have a longer or shorter Jousting Lance. Vanilla uses 95f
-			float widthMultiplier = 46f; // How thick the hit-line is. Increase or decrease this value if your Jousting Lance is thicker or thinner. Vanilla uses 23f
+			float scaleFactor = 180f; // How far back the hit-line will be from the tip of the Jousting Lance. You will need to modify this if you have a longer or shorter Jousting Lance. Vanilla uses 95f
+			float widthMultiplier = 60f; // How thick the hit-line is. Increase or decrease this value if your Jousting Lance is thicker or thinner. Vanilla uses 23f
 			float collisionPoint = 0f; // collisionPoint is needed for CheckAABBvLineCollision(), but it isn't used for our collision here. Keep it at 0f.
 
 			// This Rectangle is the width and height of the Jousting Lance's hitbox which is used for the first step of collision.
@@ -198,8 +198,8 @@ namespace SanchoLanceMod.Content.Projectiles
 			Vector2 hitLineEnd = Projectile.Center + rotationFactor.ToRotationVector2() * scaleFactor;
 
 			// The following is for debugging the size of the hit line. This will allow you to easily see where it starts and ends.
-			// Dust.NewDustPerfect(Projectile.Center, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
-			// Dust.NewDustPerfect(hitLineEnd, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
+			Dust.NewDustPerfect(Projectile.Center, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
+			Dust.NewDustPerfect(hitLineEnd, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
 
 			// First check that our large rectangle intersects with the target hitbox.
 			// Then we check to see if a line from the tip of the Jousting Lance to the "end" of the lance intersects with the target hitbox.
