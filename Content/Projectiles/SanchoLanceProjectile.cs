@@ -14,7 +14,7 @@ namespace SanchoLanceMod.Content.Projectiles
     // Code modified from tModLoader's ExampleMod
 	public class SanchoLanceProjectile : ModProjectile
 	{
-        public static readonly float LifestealPercent = 0.025f;
+        public static readonly float LifestealPercent = 0.05f;
         public static readonly float MinHitsoundVelocity =  6f;
 
         //public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";

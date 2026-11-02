@@ -14,7 +14,7 @@ namespace SanchoLanceMod.Content.Projectiles
 	public class SanchoEnhancedProjectile : ModProjectile
 	{
         public static readonly float LifestealPercent = 0.05f; //  Actual percent of damage healed
-        public static readonly float LifestealMultiplier = 0.5f; // Multiplier effectively increasing lifesteal cap due to Player.lifesteal
+        public static readonly float LifestealMultiplier = 0.65f; // Multiplier effectively increasing lifesteal cap due to Player.lifesteal
         public static readonly float MinHitSoundVelocity = 6f;
 
         public override string Texture => "SanchoLanceMod/Content/Projectiles/SanchoLanceProjectile";
@@ -198,8 +198,8 @@ namespace SanchoLanceMod.Content.Projectiles
 			Vector2 hitLineEnd = Projectile.Center + rotationFactor.ToRotationVector2() * scaleFactor;
 
 			// The following is for debugging the size of the hit line. This will allow you to easily see where it starts and ends.
-			Dust.NewDustPerfect(Projectile.Center, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
-			Dust.NewDustPerfect(hitLineEnd, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
+			//Dust.NewDustPerfect(Projectile.Center, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
+			//Dust.NewDustPerfect(hitLineEnd, DustID.Pixie, Velocity: Vector2.Zero, Scale: 0.5f);
 
 			// First check that our large rectangle intersects with the target hitbox.
 			// Then we check to see if a line from the tip of the Jousting Lance to the "end" of the lance intersects with the target hitbox.
