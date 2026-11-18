@@ -39,10 +39,13 @@ namespace SanchoLanceMod.Content.Weapons
 				int prefix = Item.prefix;
 				Item.ChangeItemType(ModContent.ItemType<SanchoLance>());
 				Item.Prefix(prefix);
-
-                
 			}
 		}
+
+        public override bool CanUseItem(Player player)
+        {
+            return player.GetModPlayer<SanchoModPlayer>().isEnhanced;
+        }
 
 		// Updates tooltip with current Hardblood
         public override void ModifyTooltips(List<TooltipLine> tooltips)
